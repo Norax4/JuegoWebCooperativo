@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Coopera")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Coopera.Tests")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+db75bc56044b59a0e2bd156990f89beb7751a08d")]
-[assembly: System.Reflection.AssemblyProductAttribute("Coopera")]
-[assembly: System.Reflection.AssemblyTitleAttribute("Coopera")]
+[assembly: System.Reflection.AssemblyProductAttribute("Coopera.Tests")]
+[assembly: System.Reflection.AssemblyTitleAttribute("Coopera.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.
