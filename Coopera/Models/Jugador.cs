@@ -4,7 +4,6 @@
 	{
 		public int ID { get; set; }
 		public string Nombre { get; set; }
-
-		List<JugadorPartida> PartidasJugadas { get; set; }
+		public List<JugadorPartida> PartidasJugadas { get; set; }
 	}
 }

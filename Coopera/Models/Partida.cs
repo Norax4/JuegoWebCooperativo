@@ -7,6 +7,6 @@
 		public int MetaMadera { get; set; }
 		public int MetaPiedra { get; set; }
 		public List<RegistroRecursos>? RegistroIngresos { get; set; }
-		public List<JugadorPartida>? Jugadores { get; set; }
+		public List<JugadorPartida>? JugadoresPartidas { get; set; }
 	}
 }

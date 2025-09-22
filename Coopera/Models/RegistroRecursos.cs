@@ -7,7 +7,7 @@
 		public int RecursoID { get; set; }
 		public int Cantidad { get; set; }
 		public DateTime FechaRegistro { get; set; }
-		public Partida? partida { get; set; }
-		public Recurso? recurso { get; set; }
+		public Partida? Partida { get; set; }
+		public Recurso? Recurso { get; set; }
 	}
 }
