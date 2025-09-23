@@ -1,12 +1,16 @@
 using System.Collections;
+using Coopera.Enums;
 
 namespace Coopera.Models
 {
     public class Partida
     {
         public int Id { get; set; }
-        public string Dificultad { get; set; } = "facil";
-        public int Meta { get; set; }
+        public Dificultad Dificultad { get; set; }
+        private int Meta { get; set; }
+        public List<Recurso> Madera { get; set; } = new List<Recurso>();
+        public List<Recurso> Piedra { get; set; } = new List<Recurso>();
+        public List<Recurso> Comida { get; set; } = new List<Recurso>();
         private DateTime _tiempoInicio;
         private DateTime? _tiempoFinal;
         public TimeSpan Duracion
@@ -19,6 +23,13 @@ namespace Coopera.Models
                 }
                 return DateTime.Now - _tiempoInicio;
             }
+        }
+
+        public Partida(Dificultad dificultad)
+        {
+            Dificultad = dificultad;
+            CalcularMeta(null);
+            Iniciar();
         }
 
         public void Iniciar()
@@ -38,19 +49,28 @@ namespace Coopera.Models
 
             Random rng = new Random(seed);
 
-            switch (Dificultad.ToLower())
+            switch ((int)Dificultad)
             {
-                case "facil":
+                case 0:
                     return rng.Next(10, 31);
-                case "media":
+                case 1:
                     return rng.Next(30, 51);
-                case "dificil":
+                case 2:
                     return rng.Next(50, 101);
                 default:
                     throw new InvalidOperationException(
-                        $"Dificultad '{Dificultad}' no es válida."
+                        $"Dificultad no válida."
                     );
             }
+        }
+
+        public bool ChequearMeta(List<Recurso> recursos)
+        {
+            if (recursos.Count == Meta)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
