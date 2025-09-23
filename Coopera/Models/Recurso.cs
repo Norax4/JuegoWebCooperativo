@@ -6,5 +6,7 @@ namespace Coopera.Models
     {
         public int Id { get; set; }
         public TipoRecurso Tipo { get; set; }
+        public int PartidaId { get; set; }
+        public ICollection<JugadorRecurso> JugadorRecursos { get; set; } = new List<JugadorRecurso>();
     }
 }

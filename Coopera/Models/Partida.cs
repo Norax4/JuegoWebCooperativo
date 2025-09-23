@@ -24,6 +24,8 @@ namespace Coopera.Models
                 return DateTime.Now - _tiempoInicio;
             }
         }
+        public ICollection<Jugador> Jugadores { get; set; } = new List<Jugador>();
+        public ICollection<Recurso> Recursos { get; set; } = new List<Recurso>();
 
         public Partida(Dificultad dificultad)
         {
