@@ -1,0 +1,7 @@
+C:\Users\Joaco\source\repos\Coopera\Coopera.Tests\bin\Debug\net8.0\CoverletSourceRootsMapping_Coopera.Tests
+C:\Users\Joaco\source\repos\Coopera\Coopera.Tests\obj\Debug\net8.0\Coopera.Tests.csproj.AssemblyReference.cache
+C:\Users\Joaco\source\repos\Coopera\Coopera.Tests\obj\Debug\net8.0\Coopera.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Joaco\source\repos\Coopera\Coopera.Tests\obj\Debug\net8.0\Coopera.Tests.AssemblyInfoInputs.cache
+C:\Users\Joaco\source\repos\Coopera\Coopera.Tests\obj\Debug\net8.0\Coopera.Tests.AssemblyInfo.cs
+C:\Users\Joaco\source\repos\Coopera\Coopera.Tests\obj\Debug\net8.0\Coopera.Tests.csproj.CoreCompileInputs.cache
+C:\Users\Joaco\source\repos\Coopera\Coopera.Tests\obj\Debug\net8.0\Coopera.Tests.sourcelink.json
