@@ -7,7 +7,7 @@ namespace Coopera.Models
     {
         public int Id { get; set; }
         public Dificultad Dificultad { get; set; }
-        private int Meta { get; set; }
+        public int Meta { get; set; }
         public List<Recurso> Madera { get; set; } = new List<Recurso>();
         public List<Recurso> Piedra { get; set; } = new List<Recurso>();
         public List<Recurso> Comida { get; set; } = new List<Recurso>();
@@ -27,10 +27,11 @@ namespace Coopera.Models
         public ICollection<Jugador> Jugadores { get; set; } = new List<Jugador>();
         public ICollection<Recurso> Recursos { get; set; } = new List<Recurso>();
 
+        public Partida(){}
         public Partida(Dificultad dificultad)
         {
             Dificultad = dificultad;
-            CalcularMeta(null);
+            Meta = CalcularMeta(null);
             Iniciar();
         }
 
@@ -68,7 +69,7 @@ namespace Coopera.Models
 
         public bool ChequearMeta(List<Recurso> recursos)
         {
-            if (recursos.Count == Meta)
+            if (recursos.Count >= Meta)
             {
                 return true;
             }
