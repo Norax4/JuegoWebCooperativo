@@ -14,19 +14,23 @@ namespace Coopera.Datos
 			base.OnModelCreating(modelBuilder);
 
 			modelBuilder.Entity<JugadorPartida>()
-				.HasKey(jr => new { jr.JugadorId, jr.PartidaId });
+				.HasKey(jp => new { jp.JugadorId, jp.PartidaId });
 
 			modelBuilder.Entity<JugadorPartida>()
 				.HasOne(jp => jp.Jugador)
 				.WithMany(j => j.JugadorPartidas)
-				.HasForeignKey(jp => jp.JugadorId);
+				.HasForeignKey(jp => jp.JugadorId)
+				.OnDelete(DeleteBehavior.Cascade);
+
+			modelBuilder.Entity<JugadorPartida>()
+				.HasOne(jp => jp.Partida)
+				.WithMany(p => p.PartidaJugadores)
+				.HasForeignKey(jp => jp.PartidaId)
+				.OnDelete(DeleteBehavior.NoAction);
 
 			modelBuilder.Entity<Partida>()
-				.ToTable("Partidas");
-			modelBuilder.Entity<Jugador>()
-				.ToTable("Jugadores");
-			modelBuilder.Entity<JugadorPartida>()
-				.ToTable("JugadorRecursos");
+				.Property(p => p.Dificultad)
+				.HasConversion<int>();
 		}
 
 		DbSet<Partida> Partidas { get; set; }
