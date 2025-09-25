@@ -1,4 +1,4 @@
-namespace Coopera.Models
+﻿namespace Coopera.Models
 {
     public class Jugador
     {
@@ -6,6 +6,6 @@ namespace Coopera.Models
         public string Nombre { get; set; } = string.Empty;
         public int PartidaId { get; set; }
         public Partida Partida { get; set; } = new();
-        public ICollection<JugadorRecurso> JugadorRecursos { get; set; } = new List<JugadorRecurso>();
+        public ICollection<JugadorPartida> JugadorPartidas { get; set; } = new List<JugadorPartida>();
     }
 }

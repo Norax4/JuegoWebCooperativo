@@ -1,16 +1,21 @@
-using System.Collections;
-using Coopera.Enums;
+﻿using System.Collections;
 
 namespace Coopera.Models
 {
+    public enum Dificultad
+    {
+        Facil = 0,
+        Media = 1,
+        Dificil = 2
+    }
     public class Partida
     {
         public int Id { get; set; }
         public Dificultad Dificultad { get; set; }
         public int Meta { get; set; }
-        public List<Recurso> Madera { get; set; } = new List<Recurso>();
-        public List<Recurso> Piedra { get; set; } = new List<Recurso>();
-        public List<Recurso> Comida { get; set; } = new List<Recurso>();
+        public int Madera { get; set; }
+        public int Piedra { get; set; }
+        public int Comida { get; set; }
         private DateTime _tiempoInicio;
         private DateTime? _tiempoFinal;
         public TimeSpan Duracion
@@ -24,10 +29,9 @@ namespace Coopera.Models
                 return DateTime.Now - _tiempoInicio;
             }
         }
-        public ICollection<Jugador> Jugadores { get; set; } = new List<Jugador>();
-        public ICollection<Recurso> Recursos { get; set; } = new List<Recurso>();
+        public ICollection<JugadorPartida> PartidaJugadores { get; set; } = new List<JugadorPartida>();
 
-        public Partida(){}
+        public Partida() { }
         public Partida(Dificultad dificultad)
         {
             Dificultad = dificultad;
@@ -67,9 +71,9 @@ namespace Coopera.Models
             }
         }
 
-        public bool ChequearMeta(List<Recurso> recursos)
+        public bool ChequearMetaRecurso(int recurso)
         {
-            if (recursos.Count >= Meta)
+            if (recurso >= Meta)
             {
                 return true;
             }

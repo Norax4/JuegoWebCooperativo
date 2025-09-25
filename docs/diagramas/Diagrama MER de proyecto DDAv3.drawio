@@ -1,0 +1,35 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17">
+  <diagram name="Página-1" id="3Wg84PQkkPxUaPDnGE2P">
+    <mxGraphModel dx="989" dy="577" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="no_VSx6gOxKmj9j1jB5e-1" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Partidas&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 14px;&quot;&gt;_____&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;+IDPartida&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;+Dificultad&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;+Meta&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;+Piedra&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;+Madera&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;+Comida&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font style=&quot;font-size: 12px;&quot;&gt;+Duracion&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="70" y="90" width="120" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="no_VSx6gOxKmj9j1jB5e-2" value="Jugadores&lt;div&gt;____&lt;/div&gt;&lt;div&gt;+IDJugador&lt;/div&gt;&lt;div&gt;+Nombre&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="620" y="110" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="wv79pKfrYfF6OAU1_PUt-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;endArrow=none;endFill=0;" edge="1" parent="1" source="wv79pKfrYfF6OAU1_PUt-1" target="no_VSx6gOxKmj9j1jB5e-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wv79pKfrYfF6OAU1_PUt-5" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="wv79pKfrYfF6OAU1_PUt-3">
+          <mxGeometry x="0.6855" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="wv79pKfrYfF6OAU1_PUt-1" value="Ingreso de&amp;nbsp;&lt;div&gt;Recursos&lt;/div&gt;&lt;div&gt;&lt;div&gt;+CantidadPiedra&lt;/div&gt;&lt;div&gt;+CantidadMadera&lt;br&gt;&lt;/div&gt;&lt;div&gt;+CantidadComida&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;/div&gt;" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="293.5" y="90" width="240" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="wv79pKfrYfF6OAU1_PUt-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.433;entryDx=0;entryDy=0;entryPerimeter=0;startArrow=none;startFill=0;endArrow=none;endFill=0;" edge="1" parent="1" source="wv79pKfrYfF6OAU1_PUt-1" target="no_VSx6gOxKmj9j1jB5e-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="wv79pKfrYfF6OAU1_PUt-4" value="N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="wv79pKfrYfF6OAU1_PUt-2">
+          <mxGeometry x="0.7297" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
