@@ -33,12 +33,7 @@ namespace Coopera.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PartidaId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PartidaId");
 
                     b.ToTable("Jugadores");
                 });
@@ -93,17 +88,6 @@ namespace Coopera.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Partidas");
-                });
-
-            modelBuilder.Entity("Coopera.Models.Jugador", b =>
-                {
-                    b.HasOne("Coopera.Models.Partida", "Partida")
-                        .WithMany()
-                        .HasForeignKey("PartidaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Partida");
                 });
 
             modelBuilder.Entity("Coopera.Models.JugadorPartida", b =>

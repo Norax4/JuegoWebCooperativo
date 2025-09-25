@@ -11,6 +11,19 @@ namespace Coopera.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Jugadores",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Jugadores", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Partidas",
                 columns: table => new
                 {
@@ -25,26 +38,6 @@ namespace Coopera.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Partidas", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Jugadores",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PartidaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Jugadores", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Jugadores_Partidas_PartidaId",
-                        column: x => x.PartidaId,
-                        principalTable: "Partidas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,11 +65,6 @@ namespace Coopera.Migrations
                         principalTable: "Partidas",
                         principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Jugadores_PartidaId",
-                table: "Jugadores",
-                column: "PartidaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_JugadoresPartidas_PartidaId",

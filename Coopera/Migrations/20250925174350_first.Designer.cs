@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Coopera.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250925172730_first")]
+    [Migration("20250925174350_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -36,12 +36,7 @@ namespace Coopera.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PartidaId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PartidaId");
 
                     b.ToTable("Jugadores");
                 });
@@ -96,17 +91,6 @@ namespace Coopera.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Partidas");
-                });
-
-            modelBuilder.Entity("Coopera.Models.Jugador", b =>
-                {
-                    b.HasOne("Coopera.Models.Partida", "Partida")
-                        .WithMany()
-                        .HasForeignKey("PartidaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Partida");
                 });
 
             modelBuilder.Entity("Coopera.Models.JugadorPartida", b =>
