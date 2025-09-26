@@ -39,12 +39,15 @@ public class PartidaTests
     {
         Partida partida = new(Dificultad.Facil);
 
+        Double duracionEsperada = 2;
+        Double tolerancia = 0.1;
+
         await Task.Delay(2000);
         partida.Finalizar();
 
         Double duracionPartida = partida.Duracion;
 
-        Assert.Equal(duracionPartida, 2, 2.1);
+        Assert.Equal(duracionEsperada, duracionPartida, tolerancia);
     }
 
     [Fact]
