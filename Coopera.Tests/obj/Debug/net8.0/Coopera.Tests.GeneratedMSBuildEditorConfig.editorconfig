@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Coopera.Tests
-build_property.ProjectDir = C:\Users\Joaco\source\repos\Coopera\Coopera.Tests\
+build_property.ProjectDir = /home/jcar512/workspace/JuegoWebCooperativo/Coopera.Tests/
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

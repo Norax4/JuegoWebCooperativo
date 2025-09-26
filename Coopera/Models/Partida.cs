@@ -18,28 +18,45 @@ namespace Coopera.Models
         public int Comida { get; set; }
         private DateTime _tiempoInicio;
         private DateTime? _tiempoFinal;
-        public TimeSpan Duracion
+        public bool PartidaFinalizada
+        {
+            get
+            {
+                if (ChequearPartidaFinalizada())
+                {
+                    Finalizar();
+                    return true;
+                }
+                return false;
+            }
+        }
+        public Double Duracion
         {
             get
             {
                 if (_tiempoFinal.HasValue)
                 {
-                    return _tiempoFinal.Value - _tiempoInicio;
+                    return (_tiempoFinal.Value - _tiempoInicio).TotalSeconds;
                 }
-                return DateTime.Now - _tiempoInicio;
+                return (DateTime.Now - _tiempoInicio).TotalSeconds;
             }
         }
         public ICollection<JugadorPartida> PartidaJugadores { get; set; } = new List<JugadorPartida>();
 
-        public Partida() { }
+        protected Partida() { }
         public Partida(Dificultad dificultad)
         {
+            if (!Enum.IsDefined(typeof(Dificultad), dificultad))
+            {
+                throw new ArgumentException("Debe ingresar una dificultad valida.", nameof(dificultad));
+            }
+
             Dificultad = dificultad;
             Meta = CalcularMeta(null);
             Iniciar();
         }
 
-        public void Iniciar()
+        private void Iniciar()
         {
             _tiempoInicio = DateTime.Now;
             _tiempoFinal = null;
@@ -77,6 +94,20 @@ namespace Coopera.Models
             {
                 return true;
             }
+            return false;
+        }
+
+        private bool ChequearPartidaFinalizada()
+        {
+            bool metaMaderaAlcanzada = ChequearMetaRecurso(Madera);
+            bool metaPiedraAlcanzada = ChequearMetaRecurso(Piedra);
+            bool metaComidaAlcanzada = ChequearMetaRecurso(Comida);
+
+            if (metaMaderaAlcanzada && metaPiedraAlcanzada && metaComidaAlcanzada)
+            {
+                return true;
+            }
+
             return false;
         }
     }

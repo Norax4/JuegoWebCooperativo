@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Coopera.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff7e8e4b2b664054d64696e8489b9c911505b228")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a86d8dd45de0dee7708b61e4bccaf70bfdf0a95d")]
 [assembly: System.Reflection.AssemblyProductAttribute("Coopera.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Coopera.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
