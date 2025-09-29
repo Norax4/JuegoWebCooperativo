@@ -1,7 +1,7 @@
 ﻿using Coopera.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Coopera.Datos
+namespace Coopera.Data
 {
 	public class AppDbContext : DbContext
 	{
