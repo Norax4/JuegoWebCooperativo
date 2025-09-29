@@ -1,5 +1,4 @@
 using Coopera.Models;
-using Coopera.Enums;
 
 namespace Coopera.Tests.UnitTests.Models;
 

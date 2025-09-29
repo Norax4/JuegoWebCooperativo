@@ -18,10 +18,7 @@ namespace Coopera.Controllers
 			return View();
 			}
 
-		public IActionResult Privacy()
-			{
-			return View();
-			}
+		// public IActionResult CrearJugador(string nombre){}
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()

@@ -33,8 +33,8 @@ namespace Coopera.Datos
 				.HasConversion<int>();
 		}
 
-		DbSet<Partida> Partidas { get; set; }
-		DbSet<Jugador> Jugadores { get; set; }
-		DbSet<JugadorPartida> JugadoresPartidas { get; set; }
+		public DbSet<Partida> Partidas { get; set; }
+		public DbSet<Jugador> Jugadores { get; set; }
+		public DbSet<JugadorPartida> JugadoresPartidas { get; set; }
 	}
 }

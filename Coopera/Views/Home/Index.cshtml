@@ -1,5 +1,5 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿﻿@{
+ViewData["Title"] = "Home Page";
 }
 <!doctype html>
 <html lang="es">
@@ -11,7 +11,7 @@
 
     <!-- Bootstrap 5 CSS (CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <style>
         body {
@@ -22,72 +22,19 @@
         .card {
             background: #121a2b;
             border: 1px solid #223150;
+            color: #ffffff;
         }
 
-        .brand {
-            letter-spacing: .5px;
-        }
-
-        .resource-value {
-            font-variant-numeric: tabular-nums;
-        }
-
-        .finished {
-            background: linear-gradient(135deg, #0a7d40, #0f5132);
-            color: #d1f5e1;
-            border: 1px solid #198754;
-        }
-
-        .muted {
-            color: #b8bfd3;
-        }
-
-        .badge-soft {
-            background: #1b2742;
-            color: #9fb4ff;
-        }
-
-        .btn-resource {
-            min-width: 140px;
-        }
-
-        .small-note {
-            font-size: .9rem;
-        }
-
-        .resource-counter {
-            background: #1b2742;
-            border: 1px solid #3d4956;
-            border-radius: 0.5rem;
-            padding: 1rem;
+        .card-title {
+            font-size: 3rem;
             text-align: center;
         }
 
-        .resource-current {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #ffffff;
-            line-height: 1;
-            margin-bottom: 0.25rem;
+        .card-text {
+            font-size: 1.5rem;
+            text-align: center;
         }
 
-        .resource-total {
-            font-size: 1rem;
-            color: #9fb4ff;
-            font-weight: 500;
-        }
-
-        .form-control:focus {
-            background: #1b2742 !important;
-            border-color: #4dabf7 !important;
-            box-shadow: 0 0 0 0.25rem rgba(77, 171, 247, 0.25) !important;
-            color: #ffffff !important;
-        }
-
-        .is-invalid {
-            border-color: #dc3545 !important;
-            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
-        }
     </style>
 </head>
 
@@ -110,123 +57,49 @@
     <!-- Main -->
     <main class="container py-4">
 
-        <!-- Estado de la partida -->
-        <div id="stateBanner" class="alert alert-info border-0" role="alert">
-            mensaje de <strong>EXITO</strong>
-        </div>
-
-        <div id="stateBanner" class="alert alert-danger border-0" role="alert">
-            mensaje de <strong>ERROR</strong>
-        </div>
-
-
-        <!-- Metas -->
-        <div class="row g-3 mb-3" id="targetsRow">
-            <div class="col-12 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-body d-flex flex-column text-center">
-                        <h5 class="card-title mb-3 text-white">Madera</h5>
-
-                        <div class="resource-counter mb-3">
-                            <div class="resource-current" id="woodCurrent">11</div>
-                            <div class="resource-total">de <span id="woodTotal">87</span></div>
-                        </div>
-
-                        <p class="card-text muted small-note mb-4">Suma 1 por click.</p>
-                        <div class="mt-auto d-grid">
-                            <button id="btnWood" class="btn btn-primary btn-resource">
-                                +1 Madera
-                            </button>
-                        </div>
-                    </div>
+        <div class="row justify-content-center g-3 mb-3">
+            <div class="card text-center w-75">
+                <div class="card-body">
+                    <h5 class="card-title">¡Coopera!</h5>
+                    <p class="card-text">
+                        Este es un ejemplo básico de una interfaz para un juego cooperativo de
+                        recursos. Puedes cambiar tu nombre haciendo clic en el botón "Cambiar nombre".
+                        Inicia una partida haciendo click al botón de abajo.
+                    </p>
                 </div>
             </div>
 
-            <div class="col-12 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-body d-flex flex-column text-center">
-                        <h5 class="card-title mb-3 text-white">Piedra</h5>
-
-                        <div class="resource-counter mb-3">
-                            <div class="resource-current" id="stoneCurrent">1</div>
-                            <div class="resource-total">de <span id="stoneTotal">37</span></div>
-                        </div>
-
-                        <p class="card-text muted small-note mb-4">Suma 1 por click.</p>
-                        <div class="mt-auto d-grid">
-                            <button id="btnStone" class="btn btn-warning btn-resource">
-                                +1 Piedra
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <div class="d-flex justify-content-center" style="margin-top: 40px;">
+                <a class="btn btn-primary btn-lg" id="gameDifficultyBtn" role="button" asp-area="" asp-controller="Partida" asp-action="PantallaPrincipal">
+                    Empezar una partida
+                </a>
             </div>
 
-            <div class="col-12 col-lg-4">
-                <div class="card h-100">
-                    <div class="card-body d-flex flex-column text-center">
-                        <h5 class="card-title mb-3 text-white">Comida</h5>
-
-                        <div class="resource-counter mb-3">
-                            <div class="resource-current" id="foodCurrent">11</div>
-                            <div class="resource-total">de <span id="foodTotal">90</span></div>
-                        </div>
-
-                        <p class="card-text muted small-note mb-4">Suma 1 por click.</p>
-                        <div class="mt-auto d-grid">
-                            <button id="btnFood" class="btn btn-success btn-resource">
-                                +1 Comida
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 
     <!-- Modal para cambiar nombre -->
-    <div class="modal fade" id="changeNameModal" tabindex="-1" aria-labelledby="changeNameModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="modalDinamico" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="background: #121a2b; border: 1px solid #223150;">
-                <div class="modal-header border-bottom border-secondary-subtle">
-                    <h5 class="modal-title text-white" id="changeNameModalLabel">Cambiar nombre</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-                        aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="changeNameForm">
-                        <div class="mb-3">
-                            <label for="newPlayerName" class="form-label text-white">Ingresa tu nombre:</label>
-                            <input type="text" class="form-control" id="newPlayerName" placeholder="Ej: MatiasV"
-                                maxlength="20" required
-                                style="background: #1b2742; border: 1px solid #3d4956; color: #ffffff;">
-                            <div class="form-text text-muted">Máximo 20 caracteres</div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer border-top border-secondary-subtle">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="acceptNameChange">Aceptar</button>
-                </div>
+            <div class="modal-content" id="contenidoModal" style="background: #121a2b; border: 1px solid #223150;">
+                @* Aquí se insertará el contenido vía AJAX *@
             </div>
         </div>
     </div>
 
     <!-- Bootstrap 5 JS Bundle (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
     <!-- JavaScript personalizado -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Referencias a elementos
             const changeNameBtn = document.getElementById('changeNameBtn');
-            const changeNameModal = new bootstrap.Modal(document.getElementById('changeNameModal'));
-            const newPlayerNameInput = document.getElementById('newPlayerName');
-            const acceptNameChangeBtn = document.getElementById('acceptNameChange');
+            const modalDinamico = new bootstrap.Modal(document.getElementById('modalDinamico'));
+            const contenidoModal = document.getElementById('contenidoModal');
             const playerNameDisplay = document.getElementById('playerNameDisplay');
+
 
             // Abrir modal al hacer clic en "Cambiar nombre"
             changeNameBtn.addEventListener('click', function () {

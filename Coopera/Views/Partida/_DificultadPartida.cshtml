@@ -1,0 +1,26 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="modal-header border-bottom border-secondary-subtle">
+    <h5 class="modal-title text-white" id="createGameModalLabel">Crear nueva partida</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <form id="createGameForm" method="post" asp-action="CrearPartida" asp-controller="Partida">
+        <div class="mb-3">
+            <label for="gameDifficulty" class="form-label text-white">
+                Ingresa la dificultad de la partida:
+            </label>
+            <select id="gameDifficulty" name="dificultad">
+                <option value="Facil">Fácil</option>
+                <option value="Media">Media</option>
+                <option value="Dificil">Difícil</option>
+            </select>
+            <button type="submit">Iniciar Partida</button>
+        </div>
+    </form>
+</div>

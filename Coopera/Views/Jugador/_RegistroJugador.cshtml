@@ -1,0 +1,80 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<div class="modal-header border-bottom border-secondary-subtle">
+    <h5 class="modal-title text-white" id="changeNameModalLabel">Cambiar nombre</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <form id="changeNameForm">
+        <div class="mb-3">
+            <label for="newPlayerName" class="form-label text-white">Ingresa tu nombre:</label>
+            <input type="text" class="form-control" id="newPlayerName" placeholder="Ej: MatiasV"
+                   maxlength="20" required
+                   style="background: #1b2742; border: 1px solid #3d4956; color: #ffffff;">
+            <div class="form-text text-muted">Máximo 20 caracteres</div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer border-top border-secondary-subtle">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-primary" id="acceptNameChange">Aceptar</button>
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const acceptNameChangeBtn = document.getElementById('acceptNameChange');
+        const newPlayerNameInput = document.getElementById('newPlayerName');
+
+        acceptNameChangeBtn.addEventListener('click', function () {
+            const newName = newPlayerNameInput.value.trim();
+
+                if (newName === '') {
+                    // Mostrar error si está vacío
+                    newPlayerNameInput.classList.add('is-invalid');
+                    return;
+                }
+
+                if (newName.length > 20) {
+                    // Validar longitud máxima
+                    newPlayerNameInput.classList.add('is-invalid');
+                    return;
+                }
+
+                // Validar caracteres (solo letras, números y algunos especiales)
+                const validNamePattern = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]+$/;
+                if (!validNamePattern.test(newName)) {
+                    newPlayerNameInput.classList.add('is-invalid');
+                    return;
+                }
+
+                // Actualizar nombre mostrado
+                playerNameDisplay.innerHTML = `Jugador: <em>${newName}</em>`;
+
+                // Limpiar estado de error
+                newPlayerNameInput.classList.remove('is-invalid');
+
+                // Cerrar modal
+                changeNameModal.hide();
+            });
+
+            // Permitir envío con Enter
+            newPlayerNameInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    acceptNameChangeBtn.click();
+                }
+            });
+
+            // Limpiar estado de error cuando se empieza a escribir
+            newPlayerNameInput.addEventListener('input', function () {
+                this.classList.remove('is-invalid');
+            });
+    })
+</script>
