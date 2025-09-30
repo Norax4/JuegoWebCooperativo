@@ -17,16 +17,16 @@ namespace Coopera.Controllers
         [HttpGet]
         public ActionResult PantallaParcialJugador()
         {
-            return PartialView("_RegistroUsuario");
+            return PartialView("_RegistroJugador");
         }
 
         [HttpPost]
-        public IActionResult RegistrarJugador(string nombre)
+        public ActionResult RegistrarJugador([FromBody] string nombre)
         {
             if (nombre == null)
             {
                 Console.WriteLine("No se introdujo ningun nombre");
-                return View("Index", "Home");
+                return Json(new { success = false, message = "Nombre inválido" });
             }
 
             Jugador jugadorExistente = _context.Jugadores.FirstOrDefault(j => j.Nombre == nombre);
@@ -34,7 +34,7 @@ namespace Coopera.Controllers
             if (jugadorExistente != null)
             {
                 Console.WriteLine("Ya hay un jugador con ese nombre");
-                return View("Index", "Home");
+                return Json(new { success = false, message = "Nombre inválido" });
             }
 
             Jugador nuevoJugador = new Jugador
@@ -44,8 +44,9 @@ namespace Coopera.Controllers
 
             _context.Jugadores.Add(nuevoJugador);
             _context.SaveChanges();
+            Console.WriteLine("Jugador registrado con exito");
 
-            return View("Index", "Home");
+            return Json(new { success = true, message = "Jugador registrado correctamente" });
         }
     }
 }

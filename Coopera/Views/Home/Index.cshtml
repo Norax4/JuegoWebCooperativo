@@ -70,9 +70,9 @@ ViewData["Title"] = "Home Page";
             </div>
 
             <div class="d-flex justify-content-center" style="margin-top: 40px;">
-                <a class="btn btn-primary btn-lg" id="gameDifficultyBtn" role="button" asp-area="" asp-controller="Partida" asp-action="PantallaPrincipal">
+                <button class="btn btn-primary btn-lg" id="gameDifficultyBtn">
                     Empezar una partida
-                </a>
+                </button>
             </div>
 
         </div>
@@ -100,17 +100,109 @@ ViewData["Title"] = "Home Page";
             const contenidoModal = document.getElementById('contenidoModal');
             const playerNameDisplay = document.getElementById('playerNameDisplay');
 
+            const gameDifficultyBtn = document.getElementById('gameDifficultyBtn');
 
-            // Abrir modal al hacer clic en "Cambiar nombre"
-            changeNameBtn.addEventListener('click', function () {
-                // Limpiar campo de entrada
-                newPlayerNameInput.value = '';
-                // Mostrar el modal
-                changeNameModal.show();
-                // Enfocar el campo de texto cuando se abre
-                setTimeout(() => {
-                    newPlayerNameInput.focus();
-                }, 500);
+
+            // Abrir modal correspondiente al hacer click en "Cambiar nombre"
+            changeNameBtn.addEventListener('click', async () => {
+                contenidoModal.innerHTML = "<p>Cargando...</p>"
+
+                try {
+                    const response = await fetch(`/Jugador/PantallaParcialJugador`);
+                    if (!response.ok) throw new Error("Error en la carga");
+
+                    const html = await response.text();
+                    contenidoModal.innerHTML = html;
+
+                    const acceptNameChangeBtn = document.getElementById('acceptNameChange');
+                    const newPlayerNameInput = document.getElementById('newPlayerName');
+
+                    acceptNameChangeBtn.addEventListener('click', async () => {
+                    const newName = newPlayerNameInput.value.trim();
+
+                        if (newName === '') {
+                            // Mostrar error si está vacío
+                            newPlayerNameInput.classList.add('is-invalid');
+                            return;
+                        }
+
+                        if (newName.length > 20) {
+                            // Validar longitud máxima
+                            newPlayerNameInput.classList.add('is-invalid');
+                            return;
+                        }
+
+                        // Validar caracteres (solo letras, números y algunos especiales)
+                        const validNamePattern = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]+$/;
+                        if (!validNamePattern.test(newName)) {
+                            newPlayerNameInput.classList.add('is-invalid');
+                            return;
+                        }
+
+                        try {
+                            const response = await fetch(`/Jugador/RegistrarJugador`, {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify( newName )
+                            });
+
+                            if (!response.ok ) {
+                                throw new Error("Error al registrar el nombre del jugador");
+                            }
+
+                            // Actualizar nombre mostrado
+                            playerNameDisplay.innerHTML = `Jugador: <em>${newName}</em>`;
+
+                            // Limpiar estado de error
+                            newPlayerNameInput.classList.remove('is-invalid');
+                            newPlayerNameInput.value = '';
+
+                            // Cerrar modal
+                            modalDinamico.hide();
+
+                        } catch (error) {
+                            console.error("Error al registrar el nombre del jugador:", error);
+                        }
+                        
+                    });
+
+                    // Permitir envío con Enter
+                    newPlayerNameInput.addEventListener('keypress', function (e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            acceptNameChangeBtn.click();
+                        }
+                    });
+
+                    // Limpiar estado de error cuando se empieza a escribir
+                    newPlayerNameInput.addEventListener('input', function () {
+                        this.classList.remove('is-invalid');
+                    });
+
+                    modalDinamico.show();
+                } catch (error) {
+                    contenidoModal.innerHTML = "<p>Error al cargar pantalla.</p>";
+                    console.error(error);
+                }
+            });
+
+            
+
+            //Abrir modal correspondiente al hacer click en "Empezar una partida"
+            gameDifficultyBtn.addEventListener('click', async () => {
+                contenidoModal.innerHTML = "<p>Cargando...</p>"
+                try {
+                    const response = await fetch(`/Partida/PantallaParcialPartida`);
+                    if (!response.ok) throw new Error("Error en la carga");
+
+                    const html = await response.text();
+                    contenidoModal.innerHTML = html;
+
+                    modalDinamico.show();
+                } catch (error) {
+                    contenidoModal.innerHTML = "<p>Error al cargar pantalla.</p>";
+                    console.error(error);
+                }
             });
 
             // Manejar envío con botón "Aceptar"

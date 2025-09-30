@@ -13,6 +13,11 @@ namespace Coopera.Controllers
         {
             _context = context;
         }
+        [HttpGet]
+        public ActionResult PantallaParcialPartida()
+        {
+            return PartialView("_DificultadPartida");
+        }
 
         [HttpPost]
         public IActionResult CrearPartida(string dificultad /*int jugadorId*/)
