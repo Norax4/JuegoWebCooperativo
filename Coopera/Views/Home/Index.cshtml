@@ -48,7 +48,7 @@ ViewData["Title"] = "Home Page";
                 <span class="badge rounded-pill text-bg-secondary">V1 (números)</span>
             </a>
             <div class="d-flex align-items-center gap-3">
-                <span id="playerNameDisplay" class="muted">Jugador: <em>MatiasV</em></span>
+                <span id="playerNameDisplay" class="muted">Jugador: <em>(ingrese un nombre)</em></span>
                 <button id="changeNameBtn" class="btn btn-sm btn-outline-light">Cambiar nombre</button>
             </div>
         </div>
@@ -140,10 +140,8 @@ ViewData["Title"] = "Home Page";
                         }
 
                         try {
-                            const response = await fetch(`/Jugador/RegistrarJugador`, {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify( newName )
+                            const response = await fetch(`/Jugador/RegistrarJugador?nombre=${newName}`, {
+                                method: "POST"
                             });
 
                             if (!response.ok ) {
@@ -198,57 +196,49 @@ ViewData["Title"] = "Home Page";
                     const html = await response.text();
                     contenidoModal.innerHTML = html;
 
+                    const startGameBtn = document.getElementById('startGameBtn');
+                    const gameDifficultySelect = document.getElementById('gameDifficulty');
+
+                    //Evento de boton de modal _DificultadPartida
+                    startGameBtn.addEventListener('click', async () => {
+                        const selectedDifficulty = gameDifficultySelect.value;
+
+                        let nombre = document.querySelector("#playerNameDisplay em").innerText;
+
+                        if (nombre === "(ingrese un nombre)") {
+                            alert("Primero debes ingresar un nombre válido.");
+                            return;
+                        }
+
+                        //Post para crear partida
+                        try {
+                            const response = await fetch(`/Partida/CrearPartida?dificultad=${selectedDifficulty}&jugadorNombre=${nombre}`, {
+                                method: "POST"
+                            })
+
+                            if (!response.ok ) {
+                                throw new Error("Error al crear la partida");
+                            }
+
+                            const data = await response.json();
+                            if (data.success) {
+                                // Limpiar selección
+                                gameDifficultySelect.value = 'Facil';
+                                // Cerrar modal
+                                modalDinamico.hide();
+
+                                window.location.href = `/Partida/PantallaPrincipal/${data.partidaId}`;
+                            }
+                        } catch (error) {
+                            console.error("Error al crear la partida:", error);
+                        }
+                    });
+
                     modalDinamico.show();
                 } catch (error) {
                     contenidoModal.innerHTML = "<p>Error al cargar pantalla.</p>";
                     console.error(error);
                 }
-            });
-
-            // Manejar envío con botón "Aceptar"
-            acceptNameChangeBtn.addEventListener('click', function () {
-                const newName = newPlayerNameInput.value.trim();
-
-                if (newName === '') {
-                    // Mostrar error si está vacío
-                    newPlayerNameInput.classList.add('is-invalid');
-                    return;
-                }
-
-                if (newName.length > 20) {
-                    // Validar longitud máxima
-                    newPlayerNameInput.classList.add('is-invalid');
-                    return;
-                }
-
-                // Validar caracteres (solo letras, números y algunos especiales)
-                const validNamePattern = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]+$/;
-                if (!validNamePattern.test(newName)) {
-                    newPlayerNameInput.classList.add('is-invalid');
-                    return;
-                }
-
-                // Actualizar nombre mostrado
-                playerNameDisplay.innerHTML = `Jugador: <em>${newName}</em>`;
-
-                // Limpiar estado de error
-                newPlayerNameInput.classList.remove('is-invalid');
-
-                // Cerrar modal
-                changeNameModal.hide();
-            });
-
-            // Permitir envío con Enter
-            newPlayerNameInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    acceptNameChangeBtn.click();
-                }
-            });
-
-            // Limpiar estado de error cuando se empieza a escribir
-            newPlayerNameInput.addEventListener('input', function () {
-                this.classList.remove('is-invalid');
             });
         });
     </script>

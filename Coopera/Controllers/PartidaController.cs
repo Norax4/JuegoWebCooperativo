@@ -1,5 +1,6 @@
 ﻿using Coopera.Datos;
 using Coopera.Models;
+using Coopera.Servicios;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,12 +8,13 @@ namespace Coopera.Controllers
 {
     public class PartidaController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly PartidaServicio _partidaServ;
 
-        public PartidaController(AppDbContext context)
+        public PartidaController(PartidaServicio context)
         {
-            _context = context;
+            _partidaServ = context;
         }
+
         [HttpGet]
         public ActionResult PantallaParcialPartida()
         {
@@ -20,47 +22,33 @@ namespace Coopera.Controllers
         }
 
         [HttpPost]
-        public IActionResult CrearPartida(string dificultad /*int jugadorId*/)
+        public ActionResult CrearPartida(string dificultad, string jugadorNombre)
         {
-            int jugadorId = 1; // ID del jugador que crea la partida (debería obtenerse del contexto de usuario autenticado)
+            Partida? nuevaPartida = _partidaServ.CrearPartida(dificultad, jugadorNombre);
 
-            Partida nuevaPartida = new Partida
+            Console.WriteLine("Verificar partida");
+            if (nuevaPartida == null)
             {
-                Dificultad = dificultad switch
-                {
-                    "Facil" => Dificultad.Facil,
-                    "Media" => Dificultad.Media,
-                    "Dificil" => Dificultad.Dificil,
-                    _ => Dificultad.Facil
-                }
-            };
+                Console.WriteLine("No se pudo crear la partida");
+                return BadRequest("No se pudo crear la partida. No se encontró un jugador.");
+            }
 
-            _context.Partidas.Add(nuevaPartida);
-
-            JugadorPartida jugadorPartida = new JugadorPartida
-            {
-                JugadorId = jugadorId,
-                Partida = nuevaPartida
-            };
-
-            _context.JugadoresPartidas.Add(jugadorPartida);
-            _context.SaveChanges();
-
-            return RedirectToAction("PantallaPrincipal", new { id = nuevaPartida.Id });
+            TempData["PlayerName"] = jugadorNombre;
+            return Json(new { success = true, partidaId = nuevaPartida.Id });
         }
 
         [HttpGet]
         public IActionResult PantallaPrincipal(int id)
         {
-            Partida partida = _context.Partidas
-                .Include(p => p.PartidaJugadores)
-                .FirstOrDefault(p => p.Id == id);
+            Partida? partida = _partidaServ.ObtenerPartidaPorId(id);
 
             if (partida == null)
             {
-                return NotFound();
+                Console.WriteLine("No se encontro la partida");
+                return NotFound("Partida no encontrada");
             }
-
+            Console.WriteLine("Partida encontrada: " + partida.Id);
+            ViewBag.PlayerName = TempData["PlayerName"] as string ?? "Jugador Desconocido";
             return View(partida);
         }
 

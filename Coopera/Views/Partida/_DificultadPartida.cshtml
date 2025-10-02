@@ -10,7 +10,7 @@
             aria-label="Close"></button>
 </div>
 <div class="modal-body">
-    <form id="createGameForm" method="post" asp-action="CrearPartida" asp-controller="Partida">
+    <form id="createGameForm">
         <div class="mb-3">
             <label for="gameDifficulty" class="form-label text-white">
                 Ingresa la dificultad de la partida:
@@ -20,7 +20,10 @@
                 <option value="Media">Media</option>
                 <option value="Dificil">Difícil</option>
             </select>
-            <button type="submit">Iniciar Partida</button>
         </div>
     </form>
+    <div class="modal-footer border-top border-secondary-subtle">
+            <button type="button" class="btn btn-primary" id="startGameBtn">Aceptar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    </div>
 </div>

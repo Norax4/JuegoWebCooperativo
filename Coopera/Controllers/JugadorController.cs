@@ -21,7 +21,7 @@ namespace Coopera.Controllers
         }
 
         [HttpPost]
-        public ActionResult RegistrarJugador([FromBody] string nombre)
+        public ActionResult RegistrarJugador(string nombre)
         {
             if (nombre == null)
             {

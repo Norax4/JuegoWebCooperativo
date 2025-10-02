@@ -1,4 +1,5 @@
 using Coopera.Datos;
+using Coopera.Servicios;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -15,6 +16,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 	//Obtenemos la cadena de conexión
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<PartidaServicio>();
 
 var app = builder.Build();
 
