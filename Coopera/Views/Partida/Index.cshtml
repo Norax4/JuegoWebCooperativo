@@ -1,5 +1,5 @@
 @{
-ViewData["Title"] = "Partida";
+  ViewData["Title"] = "Partida";
 }
 
 <!doctype html>
@@ -102,7 +102,7 @@ ViewData["Title"] = "Partida";
         <span class="badge rounded-pill text-bg-secondary">V1 (números)</span>
       </a>
       <div class="d-flex align-items-center gap-3">
-        <span id="playerNameDisplay" class="muted">Jugador: <em>Jugador</em></span>
+        <span id="playerNameDisplay" class="muted">Jugador: <em>@Model.Jugador.Nombre</em></span>
       </div>
     </div>
   </nav>
@@ -128,13 +128,13 @@ ViewData["Title"] = "Partida";
             <h5 class="card-title mb-3 text-white">Madera</h5>
 
             <div class="resource-counter mb-3">
-              <div class="resource-current" id="woodCurrent">11</div>
-              <div class="resource-total">de <span id="woodTotal">87</span></div>
+              <div class="resource-current" id="woodCurrent">@Model.Partida.Madera</div>
+              <div class="resource-total">de <span id="woodTotal">@Model.Partida.Meta</span></div>
             </div>
 
             <p class="card-text muted small-note mb-4">Suma 1 por click.</p>
             <div class="mt-auto d-grid">
-              <button id="btnWood" class="btn btn-primary btn-resource">
+              <button id="btnWood" class="btn btn-primary btn-resource" value="Madera">
                 +1 Madera
               </button>
             </div>
@@ -148,13 +148,13 @@ ViewData["Title"] = "Partida";
             <h5 class="card-title mb-3 text-white">Piedra</h5>
 
             <div class="resource-counter mb-3">
-              <div class="resource-current" id="stoneCurrent">1</div>
-              <div class="resource-total">de <span id="stoneTotal">37</span></div>
+              <div class="resource-current" id="stoneCurrent">@Model.Partida.Piedra</div>
+              <div class="resource-total">de <span id="stoneTotal">@Model.Partida.Meta</span></div>
             </div>
 
             <p class="card-text muted small-note mb-4">Suma 1 por click.</p>
             <div class="mt-auto d-grid">
-              <button id="btnStone" class="btn btn-warning btn-resource">
+              <button id="btnStone" class="btn btn-warning btn-resource" value="Piedra">
                 +1 Piedra
               </button>
             </div>
@@ -168,13 +168,13 @@ ViewData["Title"] = "Partida";
             <h5 class="card-title mb-3 text-white">Comida</h5>
 
             <div class="resource-counter mb-3">
-              <div class="resource-current" id="foodCurrent">11</div>
-              <div class="resource-total">de <span id="foodTotal">90</span></div>
+              <div class="resource-current" id="foodCurrent">@Model.Partida.Comida</div>
+              <div class="resource-total">de <span id="foodTotal">@Model.Partida.Meta</span></div>
             </div>
 
             <p class="card-text muted small-note mb-4">Suma 1 por click.</p>
             <div class="mt-auto d-grid">
-              <button id="btnFood" class="btn btn-success btn-resource">
+              <button id="btnFood" class="btn btn-success btn-resource" value="Comida">
                 +1 Comida
               </button>
             </div>
@@ -190,7 +190,35 @@ ViewData["Title"] = "Partida";
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
 
+  <script>
+    document.querySelectorAll(".btn-resource").forEach(button => {
+      const recursoMap = {
+        "Madera": 0,
+        "Piedra": 1,
+        "Comida": 2
+      };
 
+      button.addEventListener("click", () => {
+        const recursoStr = button.value; // "Madera"
+        const recursoInt = recursoMap[recursoStr]; // 0
+
+        fetch('@Url.Action("EnviarRecursos", "Partida")', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ recurso: recursoInt })
+        })
+          .then(response => response.json())
+          .then(data => {
+            // Actualizar totales juego
+            document.getElementById("woodCurrent").textContent = data.totalMadera;
+            document.getElementById("stoneCurrent").textContent = data.totalPiedra;
+            document.getElementById("foodCurrent").textContent = data.totalComida;
+          });
+      });
+    });
+  </script>
 </body>
 
 </html>

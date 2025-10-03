@@ -1,7 +1,14 @@
 namespace Coopera.Models
 {
+    public enum Recurso
+    {
+        Madera = 0,
+        Piedra = 1,
+        Comida = 2,
+    }
     public class JugadorPartida
     {
+        public int Id { get; set; }
         public int MaderaJugador { get; set; }
         public int PiedraJugador { get; set; }
         public int ComidaJugador { get; set; }
@@ -9,5 +16,36 @@ namespace Coopera.Models
         public Jugador? Jugador { get; set; }
         public int PartidaId { get; set; }
         public Partida? Partida { get; set; }
+
+        public JugadorPartida(int jugadorId, int partidaId)
+        {
+            if (jugadorId <= 0) throw new ArgumentException("JugadorId inválido.");
+            if (partidaId <= 0) throw new ArgumentException("PartidaId inválido.");
+
+            JugadorId = jugadorId;
+            PartidaId = partidaId;
+            MaderaJugador = 0;
+            PiedraJugador = 0;
+            ComidaJugador = 0;
+        }
+
+        public void SumarRecurso(Recurso recurso)
+        {
+            switch (recurso)
+            {
+                case Recurso.Madera:
+                    MaderaJugador += 1;
+                    Partida!.Madera += 1;
+                    break;
+                case Recurso.Piedra:
+                    PiedraJugador += 1;
+                    Partida!.Piedra += 1;
+                    break;
+                case Recurso.Comida:
+                    ComidaJugador += 1;
+                    Partida!.Comida += 1;
+                    break;
+            }
+        }
     }
 }

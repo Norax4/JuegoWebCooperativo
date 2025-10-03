@@ -14,7 +14,11 @@ namespace Coopera.Data
 			base.OnModelCreating(modelBuilder);
 
 			modelBuilder.Entity<JugadorPartida>()
-				.HasKey(jp => new { jp.JugadorId, jp.PartidaId });
+				.HasKey(jp => jp.Id);
+
+			modelBuilder.Entity<JugadorPartida>()
+				.HasIndex(jp => new { jp.JugadorId, jp.PartidaId })
+				.IsUnique();
 
 			modelBuilder.Entity<JugadorPartida>()
 				.HasOne(jp => jp.Jugador)
@@ -33,8 +37,8 @@ namespace Coopera.Data
 				.HasConversion<int>();
 		}
 
-		DbSet<Partida> Partidas { get; set; }
-		DbSet<Jugador> Jugadores { get; set; }
-		DbSet<JugadorPartida> JugadoresPartidas { get; set; }
+		public DbSet<Partida> Partidas { get; set; }
+		public DbSet<Jugador> Jugadores { get; set; }
+		public DbSet<JugadorPartida> JugadoresPartidas { get; set; }
 	}
 }

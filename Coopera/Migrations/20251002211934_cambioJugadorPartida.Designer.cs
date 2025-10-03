@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Coopera.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250925174350_first")]
-    partial class first
+    [Migration("20251002211934_cambioJugadorPartida")]
+    partial class cambioJugadorPartida
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -43,24 +43,33 @@ namespace Coopera.Migrations
 
             modelBuilder.Entity("Coopera.Models.JugadorPartida", b =>
                 {
-                    b.Property<int>("JugadorId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("PartidaId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("ComidaJugador")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JugadorId")
                         .HasColumnType("int");
 
                     b.Property<int>("MaderaJugador")
                         .HasColumnType("int");
 
+                    b.Property<int>("PartidaId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PiedraJugador")
                         .HasColumnType("int");
 
-                    b.HasKey("JugadorId", "PartidaId");
+                    b.HasKey("Id");
 
                     b.HasIndex("PartidaId");
+
+                    b.HasIndex("JugadorId", "PartidaId")
+                        .IsUnique();
 
                     b.ToTable("JugadoresPartidas");
                 });

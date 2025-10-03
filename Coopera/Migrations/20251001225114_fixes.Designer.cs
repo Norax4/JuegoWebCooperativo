@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Coopera.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250925174350_first")]
-    partial class first
+    [Migration("20251001225114_fixes")]
+    partial class fixes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Coopera.Data;
 using Coopera.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -19,17 +18,40 @@ namespace Coopera.Controllers
 
         public IActionResult Index()
         {
+            if (HttpContext.Session.GetInt32("PartidaId") != null)
+            {
+                return RedirectToAction("Index", "Partida");
+            }
+
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<IActionResult> ComenzarPartida(string nombreJugador, Dificultad dificultad)
         {
-            return View();
-        }
+            //Chequear si existe partida en curso
+            if (HttpContext.Session.GetInt32("PartidaId") != null)
+                return BadRequest("Ya hay una partida en curso.");
 
-        public IActionResult CrearPartida()
-        {
-          return View();
+            Jugador jugador = new(nombreJugador);
+            Partida partida = new Partida(dificultad);
+
+            _context.Jugadores.Add(jugador);
+            _context.Partidas.Add(partida);
+
+            await _context.SaveChangesAsync();
+
+            JugadorPartida jugadorPartida = new(jugador.Id, partida.Id);
+
+            _context.JugadoresPartidas.Add(jugadorPartida);
+
+            await _context.SaveChangesAsync();
+
+            // Guardar Id de partida y jugador en sesion
+            HttpContext.Session.SetInt32("PartidaId", partida.Id);
+            HttpContext.Session.SetInt32("JugadorId", jugador.Id);
+
+            return RedirectToAction("Index", "Partida");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

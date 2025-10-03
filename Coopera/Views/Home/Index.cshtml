@@ -34,7 +34,6 @@
             font-size: 1.5rem;
             text-align: center;
         }
-
     </style>
 </head>
 
@@ -64,88 +63,53 @@
                 </div>
             </div>
 
-        <!-- Aniadir logica para empezar partida aqui -->
             <div class="d-flex justify-content-center" style="margin-top: 40px;">
-                <button class="btn btn-primary btn-lg">Empezar una partida</button>
+                <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#startGameModal">Empezar
+                    una partida</button>
             </div>
 
         </div>
     </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="startGameModal" tabindex="-1" aria-labelledby="startGameModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <form method="post" asp-controller="Home" asp-action="ComenzarPartida" id="formComenzarPartida">
+                    <div class="modal-body">
+                        <!-- Name Input -->
+                        <div class="mb-3">
+                            <label for="nameInput" class="form-label">Nombre</label>
+                            <input name="nombreJugador" type="text" class="form-control" id="nameInput"
+                                placeholder="Ingresa tu nombre" required>
+                        </div>
+
+                        <!-- Difficulty Select -->
+                        <div class="mb-3">
+                            <label for="difficultySelect" class="form-label">Dificultad</label>
+                            <select name="dificultad" class="form-select" id="difficultySelect" required>
+                                <option value="">Elige el nivel de dificultad...</option>
+                                <option value="Facil">Fácil</option>
+                                <option value="Media">Media</option>
+                                <option value="Dificil">Difícil</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Comenzar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Bootstrap 5 JS Bundle (CDN) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-    <!-- JavaScript personalizado -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Referencias a elementos
-            const changeNameBtn = document.getElementById('changeNameBtn');
-            const changeNameModal = new bootstrap.Modal(document.getElementById('changeNameModal'));
-            const newPlayerNameInput = document.getElementById('newPlayerName');
-            const acceptNameChangeBtn = document.getElementById('acceptNameChange');
-            const playerNameDisplay = document.getElementById('playerNameDisplay');
-
-            // Abrir modal al hacer clic en "Cambiar nombre"
-            changeNameBtn.addEventListener('click', function () {
-                // Limpiar campo de entrada
-                newPlayerNameInput.value = '';
-                // Mostrar el modal
-                changeNameModal.show();
-                // Enfocar el campo de texto cuando se abre
-                setTimeout(() => {
-                    newPlayerNameInput.focus();
-                }, 500);
-            });
-
-            // Manejar envío con botón "Aceptar"
-            acceptNameChangeBtn.addEventListener('click', function () {
-                const newName = newPlayerNameInput.value.trim();
-
-                if (newName === '') {
-                    // Mostrar error si está vacío
-                    newPlayerNameInput.classList.add('is-invalid');
-                    return;
-                }
-
-                if (newName.length > 20) {
-                    // Validar longitud máxima
-                    newPlayerNameInput.classList.add('is-invalid');
-                    return;
-                }
-
-                // Validar caracteres (solo letras, números y algunos especiales)
-                const validNamePattern = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ_-]+$/;
-                if (!validNamePattern.test(newName)) {
-                    newPlayerNameInput.classList.add('is-invalid');
-                    return;
-                }
-
-                // Actualizar nombre mostrado
-                playerNameDisplay.innerHTML = `Jugador: <em>${newName}</em>`;
-
-                // Limpiar estado de error
-                newPlayerNameInput.classList.remove('is-invalid');
-
-                // Cerrar modal
-                changeNameModal.hide();
-            });
-
-            // Permitir envío con Enter
-            newPlayerNameInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    acceptNameChangeBtn.click();
-                }
-            });
-
-            // Limpiar estado de error cuando se empieza a escribir
-            newPlayerNameInput.addEventListener('input', function () {
-                this.classList.remove('is-invalid');
-            });
-        });
-    </script>
 
 </body>
 
