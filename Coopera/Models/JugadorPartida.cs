@@ -34,16 +34,28 @@ namespace Coopera.Models
             switch (recurso)
             {
                 case Recurso.Madera:
-                    MaderaJugador += 1;
-                    Partida!.Madera += 1;
+                    if (Partida!.ChequearMetaRecurso(Partida.Madera) != true)
+                    {
+                        MaderaJugador += 1;
+                        Partida!.Madera += 1;
+                        break;
+                    }
                     break;
                 case Recurso.Piedra:
-                    PiedraJugador += 1;
-                    Partida!.Piedra += 1;
+                    if (Partida!.ChequearMetaRecurso(Partida.Piedra) != true)
+                    {
+                        PiedraJugador += 1;
+                        Partida!.Piedra += 1;
+                        break;
+                    }
                     break;
                 case Recurso.Comida:
-                    ComidaJugador += 1;
-                    Partida!.Comida += 1;
+                    if (Partida!.ChequearMetaRecurso(Partida.Comida) != true)
+                    {
+                        ComidaJugador += 1;
+                        Partida!.Comida += 1;
+                        break;
+                    }
                     break;
             }
         }

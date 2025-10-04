@@ -30,7 +30,7 @@ namespace Coopera.Models
                 return false;
             }
         }
-        public Double Duracion
+        public double Duracion
         {
             get
             {
@@ -88,6 +88,7 @@ namespace Coopera.Models
             }
         }
 
+        /* Agregar param:metaRecurso en caso de hacer metas distintas para cada recurso */
         public bool ChequearMetaRecurso(int recurso)
         {
             if (recurso >= Meta)
