@@ -4,11 +4,22 @@
 @{
 }
 
+<div class="countdown" id="logicCountdown">60s</div>
 <div class="modal-header border-bottom border-secondary-subtle">
-    <h5 class="modal-title text-white" id="foodGameModalLabel">Minijuego de comida</h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-            aria-label="Close"></button>
-    <div>
-
+    <h5 class="modal-title text-white">🧩 Minijuego: Lógica</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+    <div class="logic-statement">
+        <h6 class="text-white mb-3">Números: 24, 47, 68</h6>
+        <p class="text-white mb-0">Proposición: "Exactamente 2 números son pares"</p>
     </div>
+    <h6 class="text-white mt-4 mb-3">¿Esta proposición es verdadera o falsa?</h6>
+    <div class="d-grid gap-2">
+        <button type="button" class="btn btn-success btn-lg" id="logicTrue">✅ Verdadero</button>
+        <button type="button" class="btn btn-danger btn-lg" id="logicFalse">❌ Falso</button>
+    </div>
+</div>
+<div class="modal-footer border-top border-secondary-subtle">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 </div>

@@ -5,9 +5,60 @@
 }
 
 <div class="modal-header border-bottom border-secondary-subtle">
-    <h5 class="modal-title text-white" id="foodGameModalLabel">Resultados de la Partida</h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-            aria-label="Close"></button>
-    <div>
+    <h5 class="modal-title text-white">🎉 ¡Partida Completada!</h5>
+</div>
+<div class="modal-body">
+    <div class="text-center mb-4">
+        <h4 class="text-success">¡Victoria Cooperativa!</h4>
+        <p class="text-muted">Todos los recursos han sido recolectados</p>
+        <p class="text-white"><strong>Tiempo total:</strong> 04:32</p>
     </div>
+
+    <h6 class="text-white mb-3">Contribuciones por jugador:</h6>
+    <div class="table-responsive">
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Jugador</th>
+                    <th>🪵 Madera</th>
+                    <th>🪨 Piedra</th>
+                    <th>🍎 Comida</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>MatiasV</strong></td>
+                    <td>7</td>
+                    <td>5</td>
+                    <td>3</td>
+                    <td><strong>15</strong></td>
+                </tr>
+                <tr>
+                    <td>Ana</td>
+                    <td>0</td>
+                    <td>4</td>
+                    <td>7</td>
+                    <td>11</td>
+                </tr>
+                <tr>
+                    <td>Carlos</td>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>4</td>
+                </tr>
+                <tr class="table-warning">
+                    <td><strong>TOTALES</strong></td>
+                    <td><strong>10</strong></td>
+                    <td><strong>10</strong></td>
+                    <td><strong>10</strong></td>
+                    <td><strong>30</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal-footer border-top border-secondary-subtle">
+    <button type="button" class="btn btn-success btn-lg" id="newGameBtn">🔄 Nueva Partida</button>
 </div>

@@ -4,10 +4,33 @@
 @{
 }
 
+<div class="countdown" id="memoryCountdown">60s</div>
 <div class="modal-header border-bottom border-secondary-subtle">
-    <h5 class="modal-title text-white" id="foodGameModalLabel">Minijuego de piedra</h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-            aria-label="Close"></button>
-    <div>
+    <h5 class="modal-title text-white">🧠 Minijuego: Memoria</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+    <!-- Fase 1: Mostrar secuencia -->
+    <div id="memorySequencePhase">
+        <p class="text-center text-white mb-3">Memoriza la siguiente secuencia:</p>
+        <div class="sequence-number" id="sequenceDisplay">5</div>
+        <div class="text-center">
+            <small class="text-muted">Número <span id="sequencePosition">1</span> de 5</small>
+        </div>
     </div>
+
+    <!-- Fase 2: Pregunta -->
+    <div id="memoryQuestionPhase" style="display:none;">
+        <div class="alert alert-info">
+            <strong>Secuencia mostrada:</strong> 5, 12, 8, 15, 3
+        </div>
+        <h6 class="text-white mb-3">¿Había exactamente 2 números pares?</h6>
+        <div class="d-grid gap-2">
+            <button type="button" class="btn btn-success btn-lg" id="memoryYes">✅ Sí</button>
+            <button type="button" class="btn btn-danger btn-lg" id="memoryNo">❌ No</button>
+        </div>
+    </div>
+</div>
+<div class="modal-footer border-top border-secondary-subtle">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 </div>

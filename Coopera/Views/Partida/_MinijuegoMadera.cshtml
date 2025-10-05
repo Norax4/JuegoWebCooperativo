@@ -4,10 +4,25 @@
 @{
 }
 
+<div class="countdown" id="mathCountdown">60s</div>
 <div class="modal-header border-bottom border-secondary-subtle">
-    <h5 class="modal-title text-white" id="foodGameModalLabel">Minijuego de Madera</h5>
-    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
-            aria-label="Close"></button>
-    <div>
+    <h5 class="modal-title text-white">🧮 Minijuego: Matemáticas</h5>
+    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+</div>
+<div class="modal-body">
+    <div class="math-problem" id="mathProblem">
+        23 + 45 + 67 = ?
     </div>
+    <div class="mb-3">
+        <label for="mathAnswer" class="form-label text-white">Tu respuesta:</label>
+        <input type="number"
+               class="form-control form-control-lg text-center"
+               id="mathAnswer"
+               placeholder="Ingresa el resultado"
+               style="background: #1b2742; border: 1px solid #3d4956; color: #ffffff; font-size: 1.5rem;">
+    </div>
+</div>
+<div class="modal-footer border-top border-secondary-subtle">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+    <button type="button" class="btn btn-primary" id="submitMathAnswer">Enviar</button>
 </div>

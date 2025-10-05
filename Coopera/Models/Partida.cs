@@ -79,5 +79,20 @@ namespace Coopera.Models
             }
             return false;
         }
+
+        private bool ChequearPartidaFinalizada()
+        {
+            bool metaMaderaAlcanzada = ChequearMetaRecurso(Madera);
+            bool metaPiedraAlcanzada = ChequearMetaRecurso(Piedra);
+            bool metaComidaAlcanzada = ChequearMetaRecurso(Comida);
+
+            if (metaMaderaAlcanzada && metaPiedraAlcanzada && metaComidaAlcanzada)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }
