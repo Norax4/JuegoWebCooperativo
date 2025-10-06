@@ -111,9 +111,9 @@
   <main class="container py-4">
 
     <!-- Estado de la partida -->
-    <!-- <div id="stateBanner" class="alert alert-info border-0" role="alert"> -->
-    <!--   mensaje de <strong>EXITO</strong> -->
-    <!-- </div> -->
+    <!-- <div id="stateBanner" class="alert alert-info border-0 visually-hidden" role="alert">
+      mensaje de <strong>EXITO</strong>
+    </div> -->
 
     <!-- <div id="stateBanner" class="alert alert-danger border-0" role="alert"> -->
     <!--   mensaje de <strong>ERROR</strong> -->
@@ -215,7 +215,24 @@
             document.getElementById("woodCurrent").textContent = data.totalMadera;
             document.getElementById("stoneCurrent").textContent = data.totalPiedra;
             document.getElementById("foodCurrent").textContent = data.totalComida;
-          });
+
+            if (data.partidaFinalizada) {
+              // Mostrar alerta al finalizar partida
+              const alertDiv = document.createElement("div");
+              alertDiv.className = "alert alert-success alert-dismissible fade show mt-4";
+              alertDiv.role = "alert";
+              alertDiv.innerHTML = `
+            🎉 <strong>¡La partida ha finalizado!</strong> Has alcanzado la meta en todos los recursos.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+          `;
+
+              document.querySelector("main").prepend(alertDiv);
+
+              // Deshabilitar botones de obtener recursos
+              document.querySelectorAll(".btn-resource").forEach(b => b.disabled = true);
+            }
+          })
+          .catch(err => console.error("Error:", err));
       });
     });
   </script>

@@ -1,4 +1,5 @@
 using Coopera.Data;
+using Coopera.Services;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -9,6 +10,9 @@ builder.Services.AddControllersWithViews();
 
 //Session
 builder.Services.AddSession();
+
+//Servicio partida
+builder.Services.AddScoped<PartidaService>();
 
 //Add services to the container
 builder.Services.AddControllersWithViews();
