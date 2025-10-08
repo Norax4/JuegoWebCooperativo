@@ -11,6 +11,8 @@ namespace Coopera.Models
         public int PartidaId { get; set; }
         public Partida? Partida { get; set; }
 
+        public JugadorPartida() { }
+
         public JugadorPartida(int jugadorId, int partidaId)
         {
             if (jugadorId <= 0) throw new ArgumentException("JugadorId inválido.");

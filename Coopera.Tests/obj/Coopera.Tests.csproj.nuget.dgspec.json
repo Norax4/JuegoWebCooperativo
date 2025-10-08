@@ -1,33 +1,39 @@
 {
   "format": 1,
   "restore": {
-    "/home/jcar512/workspace/JuegoWebCooperativo/Coopera.Tests/Coopera.Tests.csproj": {}
+    "C:\\Users\\angen\\Source\\Repos\\JuegoWebCooperativoTertiary\\Coopera.Tests\\Coopera.Tests.csproj": {}
   },
   "projects": {
-    "/home/jcar512/workspace/JuegoWebCooperativo/Coopera.Tests/Coopera.Tests.csproj": {
+    "C:\\Users\\angen\\Source\\Repos\\JuegoWebCooperativoTertiary\\Coopera.Tests\\Coopera.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/jcar512/workspace/JuegoWebCooperativo/Coopera.Tests/Coopera.Tests.csproj",
+        "projectUniqueName": "C:\\Users\\angen\\Source\\Repos\\JuegoWebCooperativoTertiary\\Coopera.Tests\\Coopera.Tests.csproj",
         "projectName": "Coopera.Tests",
-        "projectPath": "/home/jcar512/workspace/JuegoWebCooperativo/Coopera.Tests/Coopera.Tests.csproj",
-        "packagesPath": "/home/jcar512/.nuget/packages/",
-        "outputPath": "/home/jcar512/workspace/JuegoWebCooperativo/Coopera.Tests/obj/",
+        "projectPath": "C:\\Users\\angen\\Source\\Repos\\JuegoWebCooperativoTertiary\\Coopera.Tests\\Coopera.Tests.csproj",
+        "packagesPath": "C:\\Users\\angen\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\angen\\Source\\Repos\\JuegoWebCooperativoTertiary\\Coopera.Tests\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/jcar512/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\angen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/jcar512/workspace/JuegoWebCooperativo/Coopera/Coopera.csproj": {
-                "projectPath": "/home/jcar512/workspace/JuegoWebCooperativo/Coopera/Coopera.csproj"
+              "C:\\Users\\angen\\Source\\Repos\\JuegoWebCooperativoTertiary\\Coopera\\Coopera.csproj": {
+                "projectPath": "C:\\Users\\angen\\Source\\Repos\\JuegoWebCooperativoTertiary\\Coopera\\Coopera.csproj"
               }
             }
           }
@@ -41,12 +47,27 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.9, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.8.0, )"
@@ -80,26 +101,32 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "/home/jcar512/workspace/JuegoWebCooperativo/Coopera/Coopera.csproj": {
+    "C:\\Users\\angen\\Source\\Repos\\JuegoWebCooperativoTertiary\\Coopera\\Coopera.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/jcar512/workspace/JuegoWebCooperativo/Coopera/Coopera.csproj",
+        "projectUniqueName": "C:\\Users\\angen\\Source\\Repos\\JuegoWebCooperativoTertiary\\Coopera\\Coopera.csproj",
         "projectName": "Coopera",
-        "projectPath": "/home/jcar512/workspace/JuegoWebCooperativo/Coopera/Coopera.csproj",
-        "packagesPath": "/home/jcar512/.nuget/packages/",
-        "outputPath": "/home/jcar512/workspace/JuegoWebCooperativo/Coopera/obj/",
+        "projectPath": "C:\\Users\\angen\\Source\\Repos\\JuegoWebCooperativoTertiary\\Coopera\\Coopera.csproj",
+        "packagesPath": "C:\\Users\\angen\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\angen\\Source\\Repos\\JuegoWebCooperativoTertiary\\Coopera\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "/home/jcar512/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\angen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -117,7 +144,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net8.0": {
@@ -134,6 +162,12 @@
               "version": "[8.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.0, )"
             }
@@ -157,7 +191,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.414/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

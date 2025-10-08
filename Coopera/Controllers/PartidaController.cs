@@ -45,23 +45,30 @@ namespace Coopera.Controllers
 
             return View(jugadorPartida);
         }
-
-        [HttpGet]
-        public ActionResult MinijuegoComida()
+        [HttpPost]
+        public IActionResult CrearMinijuego(string value)
         {
-            return PartialView("_MinijuegoComida");
-        }
+            int? partidaId = HttpContext.Session.GetInt32("PartidaId");
+            int? jugadorId = HttpContext.Session.GetInt32("JugadorId");
 
-        [HttpGet]
-        public ActionResult MinijuegoMadera()
-        {
-            return PartialView("_MinijuegoMadera");
-        }
+            if (!jugadorId.HasValue || !partidaId.HasValue)
+                return RedirectToAction("Index", "Home");
 
-        [HttpGet]
-        public ActionResult MinijuegoPiedra()
-        {
-            return PartialView("_MinijuegoPiedra");
+            int[] numberArray = _partidaService.crearArrayMinijuegos(value);
+            if (value == "Madera")
+            {
+                return Json(new
+                {
+                    arrayNumeros = numberArray
+                });
+            }
+
+            string question = _partidaService.GenerarPreguntaAleatoria(value);
+            return Json(new
+            {
+                arrayNumeros = numberArray,
+                pregunta = question
+            });
         }
 
         [HttpPost]
