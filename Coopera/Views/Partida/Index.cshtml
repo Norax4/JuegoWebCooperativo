@@ -344,7 +344,7 @@
 
                                   memoryGameModal.show();
                                   startCountdown('memoryCountdown');
-                                  startMemorySequence(data.arrayNumeros);
+                                  startMemorySequence(currentNumberArray);
                            });
                 } else if (recursoStr == "Comida") {
                       fetch('@Url.Action("CrearMinijuego", "Partida")', {
@@ -394,26 +394,28 @@
             }
           }
 
-          function startMemorySequence(numeros){
+          async function startMemorySequence(numeros){
               const display = document.getElementById('sequenceDisplay');
               const position = document.getElementById('sequencePosition');
               let counter = 0;
 
                 for (let numero in numeros) {
-                    setTimeout(() => {
-                         counter++;
-                         display.textContent = numeros[numero];
-                         position.textContent = counter;
-                    }, 1000);
-                    setTimeout(() => {
-                         display.textContent = '';
-                      }, 500);
+                    counter++;
+                    display.textContent = numeros[numero];
+                    position.textContent = counter;
+                    await esperar(1000);
+                    display.textContent = '';
+                    await esperar(500);
                 }
 
               setTimeout(() => {
                 document.getElementById('memorySequencePhase').style.display = 'none';
                 document.getElementById('memoryQuestionPhase').style.display = 'block';
               }, 1000);
+          }
+
+          function esperar(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
           }
 
             // Minijuego de Matemáticas Submit
