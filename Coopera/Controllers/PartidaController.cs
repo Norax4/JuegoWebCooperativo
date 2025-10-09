@@ -46,16 +46,18 @@ namespace Coopera.Controllers
             return View(jugadorPartida);
         }
         [HttpPost]
-        public IActionResult CrearMinijuego(string value)
+        public IActionResult CrearMinijuego([FromBody] RecursoRequest request)
         {
+            Console.WriteLine("Entra a CM:" + request.Recurso);
             int? partidaId = HttpContext.Session.GetInt32("PartidaId");
             int? jugadorId = HttpContext.Session.GetInt32("JugadorId");
 
             if (!jugadorId.HasValue || !partidaId.HasValue)
                 return RedirectToAction("Index", "Home");
 
-            int[] numberArray = _partidaService.crearArrayMinijuegos(value);
-            if (value == "Madera")
+            Console.WriteLine("Valor recibido: " + request.Recurso);
+            int[] numberArray = _partidaService.crearArrayMinijuegos(request.Recurso);
+            if (request.Recurso == Recurso.Madera) 
             {
                 return Json(new
                 {
@@ -63,7 +65,7 @@ namespace Coopera.Controllers
                 });
             }
 
-            string question = _partidaService.GenerarPreguntaAleatoria(value);
+            string question = _partidaService.GenerarPreguntaAleatoria(request.Recurso);
             return Json(new
             {
                 arrayNumeros = numberArray,

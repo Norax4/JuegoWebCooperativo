@@ -292,28 +292,30 @@
           let currentNumberArray = [];
           let currentQuestion = '';
 
+          const recursoMap = {
+              "Madera": 0,
+              "Piedra": 1,
+              "Comida": 2
+          };
+
           // Inicializar modales
           const mathGameModal = new bootstrap.Modal(document.getElementById('mathGameModal'));
           const memoryGameModal = new bootstrap.Modal(document.getElementById('memoryGameModal'));
           const logicGameModal = new bootstrap.Modal(document.getElementById('logicGameModal'));
 
           document.querySelectorAll(".btn-resource").forEach(button => {
-          /*const recursoMap = {
-            "Madera": 0,
-            "Piedra": 1,
-            "Comida": 2
-          };*/
 
           button.addEventListener("click", () => {
                 const recursoStr = button.value; // "Madera"
+                const recursoInt = recursoMap[recursoStr]; // 0
 
-                if (recursoStr == "Madera") {
+                    if (recursoInt == 0) {
                       fetch('@Url.Action("CrearMinijuego", "Partida")', {
-                          method: 'POST',
-                          headers: {
-                            'Content-Type': 'application/json',
-                          },
-                          body: JSON.stringify({ value: recursoStr })
+                            method: 'POST',
+                            headers: {
+                              'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ recurso: recursoInt })
                           })
                           .then(response => response.json())
                           .then(data => {
@@ -325,14 +327,15 @@
 
                                 mathGameModal.show();
                                 startCountdown('mathCountdown');
-                          });
-                } else if (recursoStr == "Piedra") {
+                          })
+                          .catch(err => console.error("Error:", err));
+                    } else if (recursoInt == 1) {
                       fetch('@Url.Action("CrearMinijuego", "Partida")', {
                            method: 'POST',
                            headers: {
                              'Content-Type': 'application/json',
                            },
-                           body: JSON.stringify({ value: recursoStr })
+                             body: JSON.stringify({ recurso: recursoInt })
                            })
                            .then(response => response.json())
                            .then(data => {
@@ -345,14 +348,15 @@
                                   memoryGameModal.show();
                                   startCountdown('memoryCountdown');
                                   startMemorySequence(currentNumberArray);
-                           });
-                } else if (recursoStr == "Comida") {
+                           })
+                           .catch(err => console.error("Error:", err));
+                    } else if (recursoInt == 2) {
                       fetch('@Url.Action("CrearMinijuego", "Partida")', {
                               method: 'POST',
                               headers: {
                                 'Content-Type': 'application/json',
                               },
-                              body: JSON.stringify({ value: recursoStr })
+                              body: JSON.stringify({ recurso: recursoInt })
                               })
                               .then(response => response.json())
                               .then(data => {
@@ -365,7 +369,8 @@
 
                                     logicGameModal.show();
                                     startCountdown('logicCountdown');
-                              });
+                              })
+                              .catch(err => console.error("Error:", err));
                 }
             });
           });
@@ -394,79 +399,102 @@
             }
           }
 
-          async function startMemorySequence(numeros){
-              const display = document.getElementById('sequenceDisplay');
-              const position = document.getElementById('sequencePosition');
-              let counter = 0;
-
-                for (let numero in numeros) {
-                    counter++;
-                    display.textContent = numeros[numero];
-                    position.textContent = counter;
-                    await esperar(1000);
-                    display.textContent = '';
-                    await esperar(500);
-                }
-
-              setTimeout(() => {
-                document.getElementById('memorySequencePhase').style.display = 'none';
-                document.getElementById('memoryQuestionPhase').style.display = 'block';
-              }, 1000);
-          }
-
           function esperar(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
           }
 
+          function mensajePartidaFinalizada(){
+                // Mostrar alerta al finalizar partida
+                const alertDiv = document.createElement("div");
+                alertDiv.className = "alert alert-success alert-dismissible fade show mt-4";
+                alertDiv.role = "alert";
+                alertDiv.innerHTML = `
+                    🎉 <strong>¡La partida ha finalizado!</strong> Has alcanzado la meta en todos los recursos.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>`;
+
+                document.querySelector("main").prepend(alertDiv);
+
+                // Deshabilitar botones de obtener recursos
+                document.querySelectorAll(".btn-resource").forEach(b => b.disabled = true);
+          }
+
             // Minijuego de Matemáticas Submit
-            document.getElementById('submitMathAnswer').addEventListener('click', function() {
+          document.getElementById('submitMathAnswer').addEventListener('click', function() {
               const answer = document.getElementById('mathAnswer').value;
-              const correct = 135; // use array
+              let correct = 0;
+
+              for (let num of currentNumberArray) {
+                correct += num;
+              }
 
               clearCountdown('mathCountdown');
-              mathGameModal.hide();
 
               if (parseInt(answer) === correct) {
-                gameData.wood.current = Math.min(gameData.wood.current + 1, gameData.wood.target);
-                document.getElementById('woodCurrent').textContent = gameData.wood.current;
-                updateChart();
-                showSuccessMessage('¡Correcto! Has recolectado madera.');
+
+                  fetch('@Url.Action("EnviarRecursos", "Partida")', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ recurso: recursoMap["Madera"] })
+                })
+                  .then(response => response.json())
+                  .then(data => {
+                   //Actualizar total de madera
+                     document.getElementById("woodCurrent").textContent = data.totalMadera;
+
+                     mathGameModal.hide();
+
+                     if (data.partidaFinalizada) {
+                          mensajePartidaFinalizada();
+                     } else {
+                          showSuccessMessage('¡Correcto! Has recolectado madera.');
+                     }
+                  })
+                  .catch(err => console.error("Error:", err));
               } else {
-                showErrorMessage(`Respuesta incorrecta. La suma correcta era ${correct}.`);
+                  mathGameModal.hide();
+                  showErrorMessage(`Respuesta incorrecta. La suma correcta era ${correct}.`);
               }
             });
 
-            /*fetch('', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ recurso: recursoInt })
-            })
-              .then(response => response.json())
-              .then(data => {
-                // Actualizar totales juego
-                document.getElementById("woodCurrent").textContent = data.totalMadera;
-                document.getElementById("stoneCurrent").textContent = data.totalPiedra;
-                document.getElementById("foodCurrent").textContent = data.totalComida;
+            //Secuencia para el minijuego de memoria
+            async function startMemorySequence(numeros){
+                const display = document.getElementById('sequenceDisplay');
+                const position = document.getElementById('sequencePosition');
+                let counter = 0;
 
-                if (data.partidaFinalizada) {
-                  // Mostrar alerta al finalizar partida
-                  const alertDiv = document.createElement("div");
-                  alertDiv.className = "alert alert-success alert-dismissible fade show mt-4";
-                  alertDiv.role = "alert";
-                  alertDiv.innerHTML = `
-                🎉 <strong>¡La partida ha finalizado!</strong> Has alcanzado la meta en todos los recursos.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-              `;
+                  for (let numero in numeros) {
+                      counter++;
+                      display.textContent = numeros[numero];
+                      position.textContent = counter;
+                      await esperar(1000);
+                      display.textContent = '';
+                      await esperar(500);
+                  }
 
-                  document.querySelector("main").prepend(alertDiv);
+                setTimeout(() => {
+                  document.getElementById('memorySequencePhase').style.display = 'none';
+                  document.getElementById('memoryQuestionPhase').style.display = 'block';
+                }, 1000);
+            }
 
-                  // Deshabilitar botones de obtener recursos
-                  document.querySelectorAll(".btn-resource").forEach(b => b.disabled = true);
-                }
-              })
-              .catch(err => console.error("Error:", err));*/
+            document.getElementById('memoryYes').addEventListener('click', function() {
+              clearCountdown('memoryCountdown');
+              memoryGameModal.hide();
+
+              // Respuesta correcta: 5, 12, 8, 15, 3 tiene exactamente 2 pares (12, 8)
+              gameData.stone.current = Math.min(gameData.stone.current + 1, gameData.stone.target);
+              document.getElementById('stoneCurrent').textContent = gameData.stone.current;
+              updateChart();
+              showSuccessMessage('¡Correcto! Has recolectado piedra.');
+            });
+
+            document.getElementById('memoryNo').addEventListener('click', function() {
+              clearCountdown('memoryCountdown');
+              memoryGameModal.hide();
+              showErrorMessage('Respuesta incorrecta. Había exactamente 2 números pares.');
+            });
 
             function showSuccessMessage(text = '¡Recurso recolectado!') {
               const banner = document.getElementById('stateBanner');
@@ -476,8 +504,8 @@
               setTimeout(() => banner.style.display = 'none', 3000);
             }
 
-            function showErrorMessage(text) {
-              const banner = document.getElementById('stateBanner');
+            function showErrorMessage( text) {
+                const banner = document.getElementById('stateBanner');
               banner.className = 'alert alert-danger border-0';
               banner.innerHTML = `<strong>Error:</strong> ${text}`;
               banner.style.display = 'block';
