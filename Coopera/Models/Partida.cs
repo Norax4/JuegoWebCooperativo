@@ -76,11 +76,11 @@ namespace Coopera.Models
             switch ((int)Dificultad)
             {
                 case 0:
-                    return rng.Next(10, 31);
+                    return rng.Next(5, 11);
                 case 1:
-                    return rng.Next(30, 51);
+                    return rng.Next(10, 16);
                 case 2:
-                    return rng.Next(50, 101);
+                    return rng.Next(15, 26);
                 default:
                     throw new InvalidOperationException(
                         $"Dificultad no válida."

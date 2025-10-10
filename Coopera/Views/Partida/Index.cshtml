@@ -185,367 +185,447 @@
         </div>
       </div>
     </div>
-  </main>
+
 
     <!-- Modal Minijuego de Matemáticas -->
     <div class="modal fade" id="mathGameModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="background: #121a2b; border: 1px solid #223150; position: relative;">
-                <div class="countdown" id="mathCountdown">60s</div>
-                <div class="modal-header border-bottom border-secondary-subtle">
-                    <h5 class="modal-title text-white">🧮 Minijuego: Matemáticas</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="math-problem" id="mathProblem">
-                        23 + 45 + 67 = ?
-                    </div>
-                    <div class="mb-3">
-                        <label for="mathAnswer" class="form-label text-white">Tu respuesta:</label>
-                        <input type="number"
-                               class="form-control form-control-lg text-center"
-                               id="mathAnswer"
-                               placeholder="Ingresa el resultado"
-                               style="background: #1b2742; border: 1px solid #3d4956; color: #ffffff; font-size: 1.5rem;">
-                    </div>
-                </div>
-                <div class="modal-footer border-top border-secondary-subtle">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="submitMathAnswer">Enviar</button>
-                </div>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: #121a2b; border: 1px solid #223150; position: relative;">
+          <div class="countdown" id="mathCountdown">60s</div>
+          <div class="modal-header border-bottom border-secondary-subtle">
+            <h5 class="modal-title text-white">🧮 Minijuego: Matemáticas</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="math-problem" id="mathProblem">
+              23 + 45 + 67 = ?
             </div>
+            <div class="mb-3">
+              <label for="mathAnswer" class="form-label text-white">Tu respuesta:</label>
+              <input type="number" class="form-control form-control-lg text-center" id="mathAnswer"
+                placeholder="Ingresa el resultado"
+                style="background: #1b2742; border: 1px solid #3d4956; color: #ffffff; font-size: 1.5rem;">
+            </div>
+          </div>
+          <div class="modal-footer border-top border-secondary-subtle">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-primary" id="submitMathAnswer">Enviar</button>
+          </div>
         </div>
+      </div>
     </div>
+
 
     <!-- Modal Minijuego de Memoria -->
     <div class="modal fade" id="memoryGameModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content" style="background: #121a2b; border: 1px solid #223150; position: relative;">
-                <div class="countdown" id="memoryCountdown">60s</div>
-                <div class="modal-header border-bottom border-secondary-subtle">
-                    <h5 class="modal-title text-white">🧠 Minijuego: Memoria</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Fase 1: Mostrar secuencia -->
-                    <div id="memorySequencePhase">
-                        <p class="text-center text-white mb-3">Memoriza la siguiente secuencia:</p>
-                        <div class="sequence-number" id="sequenceDisplay">5</div>
-                        <div class="text-center">
-                            <small class="text-muted">Número <span id="sequencePosition">1</span> de 5</small>
-                        </div>
-                    </div>
-
-                    <!-- Fase 2: Pregunta -->
-                    <div id="memoryQuestionPhase" style="display:none;">
-                        <h6 class="text-white mb-3" id="questionMemory">¿Había exactamente 2 números pares?</h6>
-                        <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-success btn-lg" id="memoryYes">✅ Sí</button>
-                            <button type="button" class="btn btn-danger btn-lg" id="memoryNo">❌ No</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer border-top border-secondary-subtle">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content" style="background: #121a2b; border: 1px solid #223150; position: relative;">
+          <div class="countdown" id="memoryCountdown">60s</div>
+          <div class="modal-header border-bottom border-secondary-subtle">
+            <h5 class="modal-title text-white">🧠 Minijuego: Memoria</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <!-- Fase 1: Mostrar secuencia -->
+            <div id="memorySequencePhase">
+              <p class="text-center text-white mb-3">Memoriza la siguiente secuencia:</p>
+              <div class="sequence-number" id="sequenceDisplay">5</div>
+              <div class="text-center">
+                <small class="text-muted">Número <span id="sequencePosition">1</span> de 5</small>
+              </div>
             </div>
+
+            <!-- Fase 2: Pregunta -->
+            <div id="memoryQuestionPhase" style="display:none;">
+              <h6 class="text-white mb-3" id="questionMemory">¿Había exactamente 2 números pares?</h6>
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-success btn-lg" id="memoryYes">✅ Sí</button>
+                <button type="button" class="btn btn-danger btn-lg" id="memoryNo">❌ No</button>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer border-top border-secondary-subtle">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
         </div>
+      </div>
     </div>
+
 
     <!-- Modal Minijuego de Lógica -->
     <div class="modal fade" id="logicGameModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="background: #121a2b; border: 1px solid #223150; position: relative;">
-                <div class="countdown" id="logicCountdown">60s</div>
-                <div class="modal-header border-bottom border-secondary-subtle">
-                    <h5 class="modal-title text-white">🧩 Minijuego: Lógica</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="logic-statement">
-                        <h6 class="text-white mb-3">Números: <span id="numberArrayLogic">24, 47, 68</span></h6>
-                        <p class="text-white mb-0">Proposición: <span id="propositionLogic">"Exactamente 2 números son pares"</span></p>
-                    </div>
-                    <h6 class="text-white mt-4 mb-3">¿Esta proposición es verdadera o falsa?</h6>
-                    <div class="d-grid gap-2">
-                        <button type="button" class="btn btn-success btn-lg" id="logicTrue">✅ Verdadero</button>
-                        <button type="button" class="btn btn-danger btn-lg" id="logicFalse">❌ Falso</button>
-                    </div>
-                </div>
-                <div class="modal-footer border-top border-secondary-subtle">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: #121a2b; border: 1px solid #223150; position: relative;">
+          <div class="countdown" id="logicCountdown">60s</div>
+          <div class="modal-header border-bottom border-secondary-subtle">
+            <h5 class="modal-title text-white">🧩 Minijuego: Lógica</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="logic-statement">
+              <h6 class="text-white mb-3">Números: <span id="numberArrayLogic">24, 47, 68</span></h6>
+              <p class="text-white mb-0">Proposición: <span id="propositionLogic">"Exactamente 2 números son
+                  pares"</span>
+              </p>
             </div>
+            <h6 class="text-white mt-4 mb-3">¿Esta proposición es verdadera o falsa?</h6>
+            <div class="d-grid gap-2">
+              <button type="button" class="btn btn-success btn-lg" id="logicTrue">✅ Verdadero</button>
+              <button type="button" class="btn btn-danger btn-lg" id="logicFalse">❌ Falso</button>
+            </div>
+          </div>
+          <div class="modal-footer border-top border-secondary-subtle">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          </div>
         </div>
+      </div>
     </div>
+
+
+    <!--Botones estadistica y nueva partida -->
+    <div class="text-center my-4 d-flex justify-content-around">
+      <button id="btnVerEstadisticas" class="btn btn-primary d-none">
+        📊 Ver estadísticas
+      </button>
+      <button id="btnNuevaPartida" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#newGameModal">
+        🕹️ Nueva partida
+      </button>
+    </div>
+
+
+    <!-- End Game Modal -->
+    <div class="modal fade" id="endGameModal" tabindex="-1" aria-labelledby="endGameModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark text-light border border-success">
+          <div class="modal-header border-bottom border-success">
+            <h5 class="modal-title" id="endGameModalLabel">🎉 ¡Partida Finalizada!</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+              aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-center text-muted mb-4">Recursos recolectados por jugador</p>
+            <canvas id="recursosChart" height="300"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Modal nueva partida -->
+    <div class="modal fade" id="newGameModal" tabindex="-1" aria-labelledby="newGameModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: #121a2b; border: 1px solid #223150;">
+          <form method="post" asp-controller="Partida" asp-action="NuevaPartida" id="formNuevaPartida">
+            <div class="modal-body">
+              <!-- Difficulty Select -->
+              <div class="mb-3">
+                <label for="difficultySelect" class="form-label">Dificultad</label>
+                <select name="dificultad" class="form-select" id="difficultySelect" required>
+                  <option value="">Elige el nivel de dificultad...</option>
+                  <option value="Facil">Fácil</option>
+                  <option value="Media">Media</option>
+                  <option value="Dificil">Difícil</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Comenzar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
 
 
   <!-- Bootstrap 5 JS Bundle (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="module">
+    import { renderChartJs } from '/js/chartJs.js'
 
-  <script>
-      document.addEventListener('DOMContentLoaded', () => {
-          //Inicializar variables
-          let countdownTimers = {};
-          let currentNumberArray = [];
-          let currentQuestion = '';
-          let rightAnswer = -1;
 
-          const recursoMap = {
-              "Madera": 0,
-              "Piedra": 1,
-              "Comida": 2
-          };
+    document.addEventListener('DOMContentLoaded', () => {
+      let chartDataCache = null;
 
-          // Inicializar modales
-          const mathGameModal = new bootstrap.Modal(document.getElementById('mathGameModal'));
-          const memoryGameModal = new bootstrap.Modal(document.getElementById('memoryGameModal'));
-          const logicGameModal = new bootstrap.Modal(document.getElementById('logicGameModal'));
+      //Inicializar variables
+      let countdownTimers = {};
+      let currentNumberArray = [];
+      let currentQuestion = '';
+      let rightAnswer = -1;
 
-          document.querySelectorAll(".btn-resource").forEach(button => {
+      const partidaId = @Model.Partida.Id;
 
-          button.addEventListener("click", () => {
-                const recursoStr = button.value; // "Madera"
-                const recursoInt = recursoMap[recursoStr]; // 0
+      const recursoMap = {
+        "Madera": 0,
+        "Piedra": 1,
+        "Comida": 2
+      };
 
-                    if (recursoInt == 0) {
-                      fetch('@Url.Action("CrearMinijuego", "Partida")', {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ recurso: recursoInt })
-                          })
-                          .then(response => response.json())
-                          .then(data => {
-                              //guardar valores
-                                currentQuestion = data.pregunta;
-                                rightAnswer = data.respuestaCorrecta;
-                              //Asignar valores del array
-                                document.getElementById('mathProblem').innerText = currentQuestion;
-                                document.getElementById('mathAnswer').value = '';
+      // Inicializar modales
+      const mathGameModal = new bootstrap.Modal(document.getElementById('mathGameModal'));
+      const memoryGameModal = new bootstrap.Modal(document.getElementById('memoryGameModal'));
+      const logicGameModal = new bootstrap.Modal(document.getElementById('logicGameModal'));
 
-                                mathGameModal.show();
-                                startCountdown('mathCountdown');
-                          })
-                          .catch(err => console.error("Error:", err));
-                    } else if (recursoInt == 1) {
-                      fetch('@Url.Action("CrearMinijuego", "Partida")', {
-                           method: 'POST',
-                           headers: {
-                             'Content-Type': 'application/json',
-                           },
-                             body: JSON.stringify({ recurso: recursoInt })
-                           })
-                           .then(response => response.json())
-                           .then(data => {
-                                //guardar valores
-                                  currentNumberArray = data.secuencia;
-                                  currentQuestion = data.pregunta;
-                                  rightAnswer = data.respuestaCorrecta;
-                                //asignar la pregunta
-                                  document.getElementById('questionMemory').innerText = currentQuestion;
+      document.querySelectorAll(".btn-resource").forEach(button => {
 
-                                  memoryGameModal.show();
-                                  startCountdown('memoryCountdown');
-                                  startMemorySequence(currentNumberArray);
-                           })
-                           .catch(err => console.error("Error:", err));
-                    } else if (recursoInt == 2) {
-                      fetch('@Url.Action("CrearMinijuego", "Partida")', {
-                              method: 'POST',
-                              headers: {
-                                'Content-Type': 'application/json',
-                              },
-                              body: JSON.stringify({ recurso: recursoInt })
-                              })
-                              .then(response => response.json())
-                              .then(data => {
-                                  //guardar valores
-                                    currentNumberArray = data.secuencia;
-                                    currentQuestion = data.pregunta;
-                                    rightAnswer = data.respuestaCorrecta;
-                                  //Asignar valores del array
-                                    document.getElementById('numberArrayLogic').innerText = `${currentNumberArray[0]}, ${currentNumberArray[1]}, ${currentNumberArray[2]}`;
-                                    document.getElementById('propositionLogic').innerText = currentQuestion;
+        button.addEventListener("click", () => {
+          const recursoStr = button.value; // "Madera"
+          const recursoInt = recursoMap[recursoStr]; // 0
 
-                                    logicGameModal.show();
-                                    startCountdown('logicCountdown');
-                              })
-                              .catch(err => console.error("Error:", err));
-                }
-            });
-          });
-
-           // Countdown timer
-          function startCountdown(elementId, duration = 60) {
-            let timeLeft = duration;
-            const element = document.getElementById(elementId);
-
-            countdownTimers[elementId] = setInterval(() => {
-              timeLeft--;
-              element.textContent = timeLeft + 's';
-
-              if (timeLeft <= 0) {
-                clearInterval(countdownTimers[elementId]);
-                element.textContent = 'Tiempo agotado';
-              }
-            }, 1000);
-          }
-
-          // Limpiar countdown
-          function clearCountdown(elementId) {
-            if (countdownTimers[elementId]) {
-              clearInterval(countdownTimers[elementId]);
-              delete countdownTimers[elementId];
-            }
-          }
-
-          function esperar(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-          }
-
-          //Función para añadir recurso en las respuestas correctas
-          function addResource(recurso) {
-              fetch('@Url.Action("EnviarRecursos", "Partida")', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ recurso: recursoMap[recurso] })
-              })
+          if (recursoInt == 0) {
+            fetch('@Url.Action("CrearMinijuego", "Partida")', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ recurso: recursoInt })
+            })
               .then(response => response.json())
               .then(data => {
+                //guardar valores
+                currentQuestion = data.pregunta;
+                rightAnswer = data.respuestaCorrecta;
+                //Asignar valores del array
+                document.getElementById('mathProblem').innerText = currentQuestion;
+                document.getElementById('mathAnswer').value = '';
 
-                  document.getElementById("woodCurrent").textContent = data.totalMadera;
-                  document.getElementById("stoneCurrent").textContent = data.totalPiedra;
-                  document.getElementById("foodCurrent").textContent = data.totalComida;
+                mathGameModal.show();
+                startCountdown('mathCountdown');
+              })
+              .catch(err => console.error("Error:", err));
+          } else if (recursoInt == 1) {
+            fetch('@Url.Action("CrearMinijuego", "Partida")', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ recurso: recursoInt })
+            })
+              .then(response => response.json())
+              .then(data => {
+                //guardar valores
+                currentNumberArray = data.secuencia;
+                currentQuestion = data.pregunta;
+                rightAnswer = data.respuestaCorrecta;
+                //asignar la pregunta
+                document.getElementById('questionMemory').innerText = currentQuestion;
 
-                  if (recurso == "Madera"){
-                        mathGameModal.hide();
-                  } else if (recurso == "Piedra"){
-                        memoryGameModal.hide();
-                  } else if (recurso == "Comida"){
-                        logicGameModal.hide();
-                  }
+                memoryGameModal.show();
+                startCountdown('memoryCountdown');
+                startMemorySequence(currentNumberArray);
+              })
+              .catch(err => console.error("Error:", err));
+          } else if (recursoInt == 2) {
+            fetch('@Url.Action("CrearMinijuego", "Partida")', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ recurso: recursoInt })
+            })
+              .then(response => response.json())
+              .then(data => {
+                //guardar valores
+                currentNumberArray = data.secuencia;
+                currentQuestion = data.pregunta;
+                rightAnswer = data.respuestaCorrecta;
+                //Asignar valores del array
+                document.getElementById('numberArrayLogic').innerText = `${currentNumberArray[0]}, ${currentNumberArray[1]}, ${currentNumberArray[2]}`;
+                document.getElementById('propositionLogic').innerText = currentQuestion;
 
-                  if (data.partidaFinalizada) {
-                        const alertDiv = document.createElement("div");
-                        alertDiv.className = "alert alert-success alert-dismissible fade show mt-4";
-                        alertDiv.role = "alert";
-                        alertDiv.innerHTML = `
+                logicGameModal.show();
+                startCountdown('logicCountdown');
+              })
+              .catch(err => console.error("Error:", err));
+          }
+        });
+      });
+
+      // Countdown timer
+      function startCountdown(elementId, duration = 60) {
+        let timeLeft = duration;
+        const element = document.getElementById(elementId);
+
+        countdownTimers[elementId] = setInterval(() => {
+          timeLeft--;
+          element.textContent = timeLeft + 's';
+
+          if (timeLeft <= 0) {
+            clearInterval(countdownTimers[elementId]);
+            element.textContent = 'Tiempo agotado';
+          }
+        }, 1000);
+      }
+
+      // Limpiar countdown
+      function clearCountdown(elementId) {
+        if (countdownTimers[elementId]) {
+          clearInterval(countdownTimers[elementId]);
+          delete countdownTimers[elementId];
+        }
+      }
+
+      function esperar(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
+      //Función para añadir recurso en las respuestas correctas
+      function addResource(recurso) {
+        fetch('@Url.Action("EnviarRecursos", "Partida")', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ recurso: recursoMap[recurso] })
+        })
+          .then(response => response.json())
+          .then(data => {
+
+            document.getElementById("woodCurrent").textContent = data.totalMadera;
+            document.getElementById("stoneCurrent").textContent = data.totalPiedra;
+            document.getElementById("foodCurrent").textContent = data.totalComida;
+
+            if (recurso == "Madera") {
+              mathGameModal.hide();
+            } else if (recurso == "Piedra") {
+              memoryGameModal.hide();
+            } else if (recurso == "Comida") {
+              logicGameModal.hide();
+            }
+
+            if (data.partidaFinalizada) {
+              const alertDiv = document.createElement("div");
+              alertDiv.className = "alert alert-success alert-dismissible fade show mt-4";
+              alertDiv.role = "alert";
+              alertDiv.innerHTML = `
                           :tada: <strong>¡La partida ha finalizado!</strong> Has alcanzado la meta en todos los recursos.
                           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>`;
 
-                        document.querySelector("main").prepend(alertDiv);
-                        document.querySelectorAll(".btn-resource").forEach(b => b.disabled = true);
-                  } else {
-                        showSuccessMessage(`¡Correcto! Has recolectado ${recurso}.`);
-                  }
-              })
-              .catch(err => console.error("Error:", err));
+              document.querySelector("main").prepend(alertDiv);
+              document.querySelectorAll(".btn-resource").forEach(b => b.disabled = true);
+
+              chartDataCache = data.jugadoresStats;
+
+              //Habilitar boton estadisticas y nueva partida
+              const btnStats = document.getElementById("btnVerEstadisticas");
+              const btnNewGame = document.getElementById("btnNuevaPartida")
+
+              btnStats.classList.remove("d-none");
+              btnNewGame.classList.remove("d-none");
+            } else {
+              showSuccessMessage(`¡Correcto! Has recolectado ${recurso}.`);
             }
+          })
+          .catch(err => console.error("Error:", err));
+      }
 
-            // Minijuego de Matemáticas Submit
-          document.getElementById('submitMathAnswer').addEventListener('click', async function() {
-              const answer = document.getElementById('mathAnswer').value;
-
-              clearCountdown('mathCountdown');
-
-              if (parseInt(answer) === rightAnswer) {
-
-                  addResource("Madera");
-              } else {
-                  mathGameModal.hide();
-                  showErrorMessage(`Respuesta incorrecta. La suma correcta era ${rightAnswer}.`);
-              }
-            });
-
-            //Secuencia para el minijuego de memoria
-            async function startMemorySequence(numeros){
-                const display = document.getElementById('sequenceDisplay');
-                const position = document.getElementById('sequencePosition');
-                let counter = 0;
-
-                  for (let numero in numeros) {
-                      counter++;
-                      display.textContent = numeros[numero];
-                      position.textContent = counter;
-                      await esperar(1000);
-                      display.textContent = '';
-                      await esperar(500);
-                  }
-
-                setTimeout(() => {
-                  document.getElementById('memorySequencePhase').style.display = 'none';
-                  document.getElementById('memoryQuestionPhase').style.display = 'block';
-                }, 1000);
-            }
-
-            //Botón "sí" de Memoria
-            document.getElementById('memoryYes').addEventListener('click', function() {
-              clearCountdown('memoryCountdown');
-
-              if (rightAnswer === 1) {
-                  addResource("Piedra");
-              } else {
-                  memoryGameModal.hide();
-                  showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
-              }
-            });
-
-            //Botón "no" de Memoria
-            document.getElementById('memoryNo').addEventListener('click', function() {
-               clearCountdown('memoryCountdown');
-
-               if (rightAnswer === 0) {
-                    addResource("Piedra");
-               } else {
-                    memoryGameModal.hide();
-                    showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
-               }
-            });
-
-            //Botón "verdadero" de Lógica
-            document.getElementById('logicTrue').addEventListener('click', function() {
-              clearCountdown('logicCountdown');
-
-              if (rightAnswer === 1) {
-                  addResource("Comida");
-              } else {
-                  logicGameModal.hide();
-                  showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
-              }
-            });
-
-            //Botón "falso" de Lógica
-            document.getElementById('logicFalse').addEventListener('click', function() {
-              clearCountdown('logicCountdown');
-
-              if (rightAnswer === 0) {
-                  addResource("Comida");
-              } else {
-                  logicGameModal.hide();
-                  showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
-              }
-            });
-
-            function showSuccessMessage(text = '¡Recurso recolectado!') {
-              const banner = document.getElementById('stateBanner');
-              banner.className = 'alert alert-success border-0';
-              banner.innerHTML = `<strong>¡Éxito!</strong> ${text}`;
-              banner.style.display = 'block';
-              setTimeout(() => banner.style.display = 'none', 3000);
-            }
-
-            function showErrorMessage( text) {
-                const banner = document.getElementById('stateBanner');
-              banner.className = 'alert alert-danger border-0';
-              banner.innerHTML = `<strong>Error:</strong> ${text}`;
-              banner.style.display = 'block';
-              setTimeout(() => banner.style.display = 'none', 3000);
-            }
+      //Estadisticas
+      document.getElementById("btnVerEstadisticas").addEventListener("click", () => {
+        renderChartJs(chartDataCache, "endGameModal", "recursosChart");
       });
+
+      // Minijuego de Matemáticas Submit
+      document.getElementById('submitMathAnswer').addEventListener('click', async function () {
+        const answer = document.getElementById('mathAnswer').value;
+
+        clearCountdown('mathCountdown');
+
+        if (parseInt(answer) === rightAnswer) {
+
+          addResource("Madera");
+        } else {
+          mathGameModal.hide();
+          showErrorMessage(`Respuesta incorrecta. La suma correcta era ${rightAnswer}.`);
+        }
+      });
+
+      //Secuencia para el minijuego de memoria
+      async function startMemorySequence(numeros) {
+        const display = document.getElementById('sequenceDisplay');
+        const position = document.getElementById('sequencePosition');
+        let counter = 0;
+
+        for (let numero in numeros) {
+          counter++;
+          display.textContent = numeros[numero];
+          position.textContent = counter;
+          await esperar(1000);
+          display.textContent = '';
+          await esperar(500);
+        }
+
+        setTimeout(() => {
+          document.getElementById('memorySequencePhase').style.display = 'none';
+          document.getElementById('memoryQuestionPhase').style.display = 'block';
+        }, 1000);
+      }
+
+      //Botón "sí" de Memoria
+      document.getElementById('memoryYes').addEventListener('click', function () {
+        clearCountdown('memoryCountdown');
+
+        if (rightAnswer === 1) {
+          addResource("Piedra");
+        } else {
+          memoryGameModal.hide();
+          showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
+        }
+      });
+
+      //Botón "no" de Memoria
+      document.getElementById('memoryNo').addEventListener('click', function () {
+        clearCountdown('memoryCountdown');
+
+        if (rightAnswer === 0) {
+          addResource("Piedra");
+        } else {
+          memoryGameModal.hide();
+          showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
+        }
+      });
+
+      //Botón "verdadero" de Lógica
+      document.getElementById('logicTrue').addEventListener('click', function () {
+        clearCountdown('logicCountdown');
+
+        if (rightAnswer === 1) {
+          addResource("Comida");
+        } else {
+          logicGameModal.hide();
+          showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
+        }
+      });
+
+      //Botón "falso" de Lógica
+      document.getElementById('logicFalse').addEventListener('click', function () {
+        clearCountdown('logicCountdown');
+
+        if (rightAnswer === 0) {
+          addResource("Comida");
+        } else {
+          logicGameModal.hide();
+          showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
+        }
+      });
+
+      function showSuccessMessage(text = '¡Recurso recolectado!') {
+        const banner = document.getElementById('stateBanner');
+        banner.className = 'alert alert-success border-0';
+        banner.innerHTML = `<strong>¡Éxito!</strong> ${text}`;
+        banner.style.display = 'block';
+        setTimeout(() => banner.style.display = 'none', 3000);
+      }
+
+      function showErrorMessage(text) {
+        const banner = document.getElementById('stateBanner');
+        banner.className = 'alert alert-danger border-0';
+        banner.innerHTML = `<strong>Error:</strong> ${text}`;
+        banner.style.display = 'block';
+        setTimeout(() => banner.style.display = 'none', 3000);
+      }
+    });
   </script>
 </body>
 
