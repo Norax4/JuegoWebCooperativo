@@ -4,6 +4,7 @@ using Coopera.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Coopera.Services;
+using Coopera.Factories.Minijuegos;
 
 namespace Coopera.Controllers
 {
@@ -46,31 +47,48 @@ namespace Coopera.Controllers
             return View(jugadorPartida);
         }
         [HttpPost]
-        public IActionResult CrearMinijuego([FromBody] RecursoRequest request)
+        public async Task<IActionResult> CrearMinijuego([FromBody] RecursoRequest request)
         {
-            Console.WriteLine("Entra a CM:" + request.Recurso);
             int? partidaId = HttpContext.Session.GetInt32("PartidaId");
             int? jugadorId = HttpContext.Session.GetInt32("JugadorId");
 
             if (!jugadorId.HasValue || !partidaId.HasValue)
                 return RedirectToAction("Index", "Home");
 
-            Console.WriteLine("Valor recibido: " + request.Recurso);
-            int[] numberArray = _partidaService.crearArrayMinijuegos(request.Recurso);
-            if (request.Recurso == Recurso.Madera) 
+            try
             {
-                return Json(new
-                {
-                    arrayNumeros = numberArray
-                });
-            }
+                IMinijuego minijuego = await _partidaService.CrearMiniJuego(partidaId, jugadorId, request.Recurso);
 
-            string question = _partidaService.GenerarPreguntaAleatoria(request.Recurso);
-            return Json(new
+                switch (minijuego) {
+                    case MinijuegoMadera madera:
+                        return Json(new
+                        {
+                            pregunta = madera.Pregunta,
+                            respuestaCorrecta = madera.RespuestaCorrecta
+                        });
+                    case MinijuegoPiedra piedra:
+                        return Json(new
+                        {
+                            pregunta = piedra.Pregunta,
+                            respuestaCorrecta = piedra.RespuestaCorrecta,
+                            secuencia = piedra.SecuenciaNumerica
+                        });
+                    case MinijuegoComida comida:
+                        return Json(new
+                        {
+                            pregunta = comida.Pregunta,
+                            respuestaCorrecta = comida.RespuestaCorrecta,
+                            secuencia = comida.SecuenciaNumerica
+                        });
+                    default:
+                        return BadRequest("Tipo de minijuego no reconocido.");
+                }
+            }
+            catch (ArgumentException ex)
             {
-                arrayNumeros = numberArray,
-                pregunta = question
-            });
+                Console.WriteLine(ex.Message);
+                return RedirectToAction("Index", "Home");
+            }
         }
 
         [HttpPost]

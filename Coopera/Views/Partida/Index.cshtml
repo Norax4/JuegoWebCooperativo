@@ -291,6 +291,7 @@
           let countdownTimers = {};
           let currentNumberArray = [];
           let currentQuestion = '';
+          let rightAnswer = 0;
 
           const recursoMap = {
               "Madera": 0,
@@ -319,10 +320,11 @@
                           })
                           .then(response => response.json())
                           .then(data => {
-                              //guardar numeros
-                                currentNumberArray = data.arrayNumeros;
+                              //guardar valores
+                                currentQuestion = data.pregunta;
+                                rightAnswer = data.respuestaCorrecta;
                               //Asignar valores del array
-                                    document.getElementById('mathProblem').innerText = `${currentNumberArray[0]} + ${currentNumberArray[1]} + ${currentNumberArray[2]} = ?`;
+                                document.getElementById('mathProblem').innerText = currentQuestion;
                                 document.getElementById('mathAnswer').value = '';
 
                                 mathGameModal.show();
@@ -339,11 +341,12 @@
                            })
                            .then(response => response.json())
                            .then(data => {
-                                //guardar numeros
-                                  currentNumberArray = data.arrayNumeros;
+                                //guardar valores
+                                  currentNumberArray = data.secuencia;
                                   currentQuestion = data.pregunta;
+                                  rightAnswer = data.respuestaCorrecta;
                                 //asignar la pregunta
-                                  document.getElementById('questionMemory').innerText = `${currentQuestion}`;
+                                  document.getElementById('questionMemory').innerText = currentQuestion;
 
                                   memoryGameModal.show();
                                   startCountdown('memoryCountdown');
@@ -360,12 +363,13 @@
                               })
                               .then(response => response.json())
                               .then(data => {
-                                  //guardar numeros
-                                    currentNumberArray = data.arrayNumeros;
+                                  //guardar valores
+                                    currentNumberArray = data.secuencia;
                                     currentQuestion = data.pregunta;
+                                    rightAnswer = data.respuestaCorrecta;
                                   //Asignar valores del array
                                     document.getElementById('numberArrayLogic').innerText = `${currentNumberArray[0]}, ${currentNumberArray[1]}, ${currentNumberArray[2]}`;
-                                    document.getElementById('propositionLogic').innerText = `${currentQuestion}`;
+                                    document.getElementById('propositionLogic').innerText = currentQuestion;
 
                                     logicGameModal.show();
                                     startCountdown('logicCountdown');
@@ -479,6 +483,7 @@
                 }, 1000);
             }
 
+            //Botón "sí" de Memoria
             document.getElementById('memoryYes').addEventListener('click', function() {
               clearCountdown('memoryCountdown');
               memoryGameModal.hide();
@@ -490,6 +495,7 @@
               showSuccessMessage('¡Correcto! Has recolectado piedra.');
             });
 
+            //Botón "no" de Memoria
             document.getElementById('memoryNo').addEventListener('click', function() {
               clearCountdown('memoryCountdown');
               memoryGameModal.hide();
