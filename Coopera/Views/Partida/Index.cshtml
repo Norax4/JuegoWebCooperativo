@@ -415,7 +415,6 @@
                 document.getElementById('questionMemory').innerText = currentQuestion;
 
                 memoryGameModal.show();
-                startCountdown('memoryCountdown');
                 startMemorySequence(currentNumberArray);
               })
               .catch(err => console.error("Error:", err));
@@ -543,6 +542,9 @@
 
       //Secuencia para el minijuego de memoria
       async function startMemorySequence(numeros) {
+        document.getElementById('memorySequencePhase').style.display = 'block';
+        document.getElementById('memoryQuestionPhase').style.display = 'none';
+
         const display = document.getElementById('sequenceDisplay');
         const position = document.getElementById('sequencePosition');
         let counter = 0;
@@ -559,6 +561,7 @@
         setTimeout(() => {
           document.getElementById('memorySequencePhase').style.display = 'none';
           document.getElementById('memoryQuestionPhase').style.display = 'block';
+          startCountdown('memoryCountdown');
         }, 1000);
       }
 
