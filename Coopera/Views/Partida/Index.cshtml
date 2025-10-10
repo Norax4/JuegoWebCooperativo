@@ -244,7 +244,10 @@
     crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <script>
+  <script type="module">
+    import { renderChartJs } from '/js/chartJs.js'
+
+
     let chartDataCache = null;
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -308,66 +311,7 @@
 
 
       document.getElementById("btnVerEstadisticas").addEventListener("click", () => {
-        if (!chartDataCache) return;
-
-        const endGameModal = new bootstrap.Modal(document.getElementById("endGameModal"));
-        endGameModal.show();
-
-        setTimeout(() => {
-          const ctx = document.getElementById('recursosChart').getContext('2d');
-
-
-          const labels = chartDataCache.map(d => d.nombreJugador);
-          const config = {
-            type: 'bar',
-            data: {
-              labels: labels,
-              datasets: [
-                {
-                  label: 'Madera',
-                  data: chartDataCache.map(d => d.madera),
-                  backgroundColor: 'rgba(153, 102, 255, 0.6)'
-                },
-                {
-                  label: 'Piedra',
-                  data: chartDataCache.map(d => d.piedra),
-                  backgroundColor: 'rgba(255, 159, 64, 0.6)'
-                },
-                {
-                  label: 'Comida',
-                  data: chartDataCache.map(d => d.comida),
-                  backgroundColor: 'rgba(75, 192, 192, 0.6)'
-                }
-              ]
-            },
-            options: {
-              responsive: true,
-              scales: {
-                x: {
-                  ticks: { color: '#ccc' },
-                  grid: { color: 'rgba(255,255,255,0.1)' }
-                },
-                y: {
-                  beginAtZero: true,
-                  ticks: { color: '#ccc' },
-                  grid: { color: 'rgba(255,255,255,0.1)' }
-                }
-              },
-              plugins: {
-                title: {
-                  display: true,
-                  text: 'Recursos recolectados por jugador',
-                  color: '#ccc'
-                },
-                legend: {
-                  labels: { color: '#ccc' }
-                }
-              }
-            }
-          };
-
-          window.recursosChart = new Chart(ctx, config);
-        }, 300);
+        renderChartJs(chartDataCache, "endGameModal", "recursosChart");
       });
     })
   </script>
