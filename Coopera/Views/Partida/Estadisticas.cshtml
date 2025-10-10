@@ -1,0 +1,61 @@
+@model List<RecursosPorJugadorDto>
+
+<canvas id="recursosChart" width="400" height="200"></canvas>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const data = @Html.Raw(Json.Serialize(Model));
+
+        const labels = data.map(d => d.nombreJugador); // Note: lowercase due to JSON serialization
+
+        const chartData = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Madera',
+                    data: data.map(d => d.madera),
+                    backgroundColor: 'rgba(153, 102, 255, 0.6)'
+                },
+                {
+                    label: 'Piedra',
+                    data: data.map(d => d.piedra),
+                    backgroundColor: 'rgba(255, 159, 64, 0.6)'
+                },
+                {
+                    label: 'Comida',
+                    data: data.map(d => d.comida),
+                    backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                }
+            ]
+        };
+
+        const config = {
+            type: 'bar',
+            data: chartData,
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        stacked: false // set to true if you want stacked bars
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Cantidad de Recursos'
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Recursos recolectados por jugador'
+                    }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('recursosChart'), config);
+    </script>
+}

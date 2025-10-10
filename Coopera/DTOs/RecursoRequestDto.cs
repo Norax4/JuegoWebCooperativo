@@ -3,7 +3,7 @@ using Coopera.Services;
 
 namespace Coopera.DTOs
 {
-    public class RecursoRequest
+    public class RecursoRequestDto
     {
         [JsonPropertyName("recurso")]
         public Recurso Recurso { get; set; }

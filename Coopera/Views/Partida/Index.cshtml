@@ -2,6 +2,7 @@
   ViewData["Title"] = "Partida";
 }
 
+
 <!doctype html>
 <html lang="es">
 
@@ -119,9 +120,6 @@
     <!--   mensaje de <strong>ERROR</strong> -->
     <!-- </div> -->
 
-    <div id="stateBanner" class="alert alert-info border-0" style="display:none;" role="alert">
-      <strong>¡Éxito!</strong> Has recolectado un recurso.
-    </div>
 
     <!-- Metas -->
     <div class="row g-3 mb-3" id="targetsRow">
@@ -185,333 +183,193 @@
         </div>
       </div>
     </div>
+
+    <div class="text-center my-4 d-flex justify-content-around">
+      <button id="btnVerEstadisticas" class="btn btn-primary d-none">
+        📊 Ver estadísticas
+      </button>
+      <button id="btnNuevaPartida" class="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#newGameModal">
+        🕹️ Nueva partida
+      </button>
+    </div>
+
+    <!-- End Game Modal -->
+    <div class="modal fade" id="endGameModal" tabindex="-1" aria-labelledby="endGameModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark text-light border border-success">
+          <div class="modal-header border-bottom border-success">
+            <h5 class="modal-title" id="endGameModalLabel">🎉 ¡Partida Finalizada!</h5>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+              aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <p class="text-center text-muted mb-4">Recursos recolectados por jugador</p>
+            <canvas id="recursosChart" height="300"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal nueva partida -->
+    <div class="modal fade" id="newGameModal" tabindex="-1" aria-labelledby="newGameModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background: #121a2b; border: 1px solid #223150;">
+          <form method="post" asp-controller="Partida" asp-action="NuevaPartida" id="formNuevaPartida">
+            <div class="modal-body">
+              <!-- Difficulty Select -->
+              <div class="mb-3">
+                <label for="difficultySelect" class="form-label">Dificultad</label>
+                <select name="dificultad" class="form-select" id="difficultySelect" required>
+                  <option value="">Elige el nivel de dificultad...</option>
+                  <option value="Facil">Fácil</option>
+                  <option value="Media">Media</option>
+                  <option value="Dificil">Difícil</option>
+                </select>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Comenzar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
   </main>
-
-    <!-- Modal Minijuego de Matemáticas -->
-    <div class="modal fade" id="mathGameModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="background: #121a2b; border: 1px solid #223150; position: relative;">
-                <div class="countdown" id="mathCountdown">60s</div>
-                <div class="modal-header border-bottom border-secondary-subtle">
-                    <h5 class="modal-title text-white">🧮 Minijuego: Matemáticas</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="math-problem" id="mathProblem">
-                        23 + 45 + 67 = ?
-                    </div>
-                    <div class="mb-3">
-                        <label for="mathAnswer" class="form-label text-white">Tu respuesta:</label>
-                        <input type="number"
-                               class="form-control form-control-lg text-center"
-                               id="mathAnswer"
-                               placeholder="Ingresa el resultado"
-                               style="background: #1b2742; border: 1px solid #3d4956; color: #ffffff; font-size: 1.5rem;">
-                    </div>
-                </div>
-                <div class="modal-footer border-top border-secondary-subtle">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="submitMathAnswer">Enviar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Minijuego de Memoria -->
-    <div class="modal fade" id="memoryGameModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content" style="background: #121a2b; border: 1px solid #223150; position: relative;">
-                <div class="countdown" id="memoryCountdown">60s</div>
-                <div class="modal-header border-bottom border-secondary-subtle">
-                    <h5 class="modal-title text-white">🧠 Minijuego: Memoria</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Fase 1: Mostrar secuencia -->
-                    <div id="memorySequencePhase">
-                        <p class="text-center text-white mb-3">Memoriza la siguiente secuencia:</p>
-                        <div class="sequence-number" id="sequenceDisplay">5</div>
-                        <div class="text-center">
-                            <small class="text-muted">Número <span id="sequencePosition">1</span> de 5</small>
-                        </div>
-                    </div>
-
-                    <!-- Fase 2: Pregunta -->
-                    <div id="memoryQuestionPhase" style="display:none;">
-                        <h6 class="text-white mb-3" id="questionMemory">¿Había exactamente 2 números pares?</h6>
-                        <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-success btn-lg" id="memoryYes">✅ Sí</button>
-                            <button type="button" class="btn btn-danger btn-lg" id="memoryNo">❌ No</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer border-top border-secondary-subtle">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Minijuego de Lógica -->
-    <div class="modal fade" id="logicGameModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content" style="background: #121a2b; border: 1px solid #223150; position: relative;">
-                <div class="countdown" id="logicCountdown">60s</div>
-                <div class="modal-header border-bottom border-secondary-subtle">
-                    <h5 class="modal-title text-white">🧩 Minijuego: Lógica</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="logic-statement">
-                        <h6 class="text-white mb-3">Números: <span id="numberArrayLogic">24, 47, 68</span></h6>
-                        <p class="text-white mb-0">Proposición: <span id="propositionLogic">"Exactamente 2 números son pares"</span></p>
-                    </div>
-                    <h6 class="text-white mt-4 mb-3">¿Esta proposición es verdadera o falsa?</h6>
-                    <div class="d-grid gap-2">
-                        <button type="button" class="btn btn-success btn-lg" id="logicTrue">✅ Verdadero</button>
-                        <button type="button" class="btn btn-danger btn-lg" id="logicFalse">❌ Falso</button>
-                    </div>
-                </div>
-                <div class="modal-footer border-top border-secondary-subtle">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
   <!-- Bootstrap 5 JS Bundle (CDN) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
-      document.addEventListener('DOMContentLoaded', () => {
-          //Inicializar variables
-          let countdownTimers = {};
-          let currentNumberArray = [];
-          let currentQuestion = '';
+    let chartDataCache = null;
 
-          const recursoMap = {
-              "Madera": 0,
-              "Piedra": 1,
-              "Comida": 2
-          };
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".btn-resource").forEach(button => {
+        const partidaId = @Model.Partida.Id;
 
-          // Inicializar modales
-          const mathGameModal = new bootstrap.Modal(document.getElementById('mathGameModal'));
-          const memoryGameModal = new bootstrap.Modal(document.getElementById('memoryGameModal'));
-          const logicGameModal = new bootstrap.Modal(document.getElementById('logicGameModal'));
+        const recursoMap = {
+          "Madera": 0,
+          "Piedra": 1,
+          "Comida": 2
+        };
 
-          document.querySelectorAll(".btn-resource").forEach(button => {
+        button.addEventListener("click", () => {
+          const recursoStr = button.value; // "Madera"
+          const recursoInt = recursoMap[recursoStr]; // 0
 
-          button.addEventListener("click", () => {
-                const recursoStr = button.value; // "Madera"
-                const recursoInt = recursoMap[recursoStr]; // 0
+          fetch('@Url.Action("EnviarRecursos", "Partida")', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ recurso: recursoInt })
+          })
+            .then(response => response.json())
+            .then(data => {
+              // Actualizar totales juego
+              document.getElementById("woodCurrent").textContent = data.totalMadera;
+              document.getElementById("stoneCurrent").textContent = data.totalPiedra;
+              document.getElementById("foodCurrent").textContent = data.totalComida;
 
-                    if (recursoInt == 0) {
-                      fetch('@Url.Action("CrearMinijuego", "Partida")', {
-                            method: 'POST',
-                            headers: {
-                              'Content-Type': 'application/json',
-                            },
-                            body: JSON.stringify({ recurso: recursoInt })
-                          })
-                          .then(response => response.json())
-                          .then(data => {
-                              //guardar numeros
-                                currentNumberArray = data.arrayNumeros;
-                              //Asignar valores del array
-                                    document.getElementById('mathProblem').innerText = `${currentNumberArray[0]} + ${currentNumberArray[1]} + ${currentNumberArray[2]} = ?`;
-                                document.getElementById('mathAnswer').value = '';
-
-                                mathGameModal.show();
-                                startCountdown('mathCountdown');
-                          })
-                          .catch(err => console.error("Error:", err));
-                    } else if (recursoInt == 1) {
-                      fetch('@Url.Action("CrearMinijuego", "Partida")', {
-                           method: 'POST',
-                           headers: {
-                             'Content-Type': 'application/json',
-                           },
-                             body: JSON.stringify({ recurso: recursoInt })
-                           })
-                           .then(response => response.json())
-                           .then(data => {
-                                //guardar numeros
-                                  currentNumberArray = data.arrayNumeros;
-                                  currentQuestion = data.pregunta;
-                                //asignar la pregunta
-                                  document.getElementById('questionMemory').innerText = `${currentQuestion}`;
-
-                                  memoryGameModal.show();
-                                  startCountdown('memoryCountdown');
-                                  startMemorySequence(currentNumberArray);
-                           })
-                           .catch(err => console.error("Error:", err));
-                    } else if (recursoInt == 2) {
-                      fetch('@Url.Action("CrearMinijuego", "Partida")', {
-                              method: 'POST',
-                              headers: {
-                                'Content-Type': 'application/json',
-                              },
-                              body: JSON.stringify({ recurso: recursoInt })
-                              })
-                              .then(response => response.json())
-                              .then(data => {
-                                  //guardar numeros
-                                    currentNumberArray = data.arrayNumeros;
-                                    currentQuestion = data.pregunta;
-                                  //Asignar valores del array
-                                    document.getElementById('numberArrayLogic').innerText = `${currentNumberArray[0]}, ${currentNumberArray[1]}, ${currentNumberArray[2]}`;
-                                    document.getElementById('propositionLogic').innerText = `${currentQuestion}`;
-
-                                    logicGameModal.show();
-                                    startCountdown('logicCountdown');
-                              })
-                              .catch(err => console.error("Error:", err));
-                }
-            });
-          });
-
-           // Countdown timer
-          function startCountdown(elementId, duration = 60) {
-            let timeLeft = duration;
-            const element = document.getElementById(elementId);
-
-            countdownTimers[elementId] = setInterval(() => {
-              timeLeft--;
-              element.textContent = timeLeft + 's';
-
-              if (timeLeft <= 0) {
-                clearInterval(countdownTimers[elementId]);
-                element.textContent = 'Tiempo agotado';
-              }
-            }, 1000);
-          }
-
-          // Limpiar countdown
-          function clearCountdown(elementId) {
-            if (countdownTimers[elementId]) {
-              clearInterval(countdownTimers[elementId]);
-              delete countdownTimers[elementId];
-            }
-          }
-
-          function esperar(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-          }
-
-          function mensajePartidaFinalizada(){
+              if (data.partidaFinalizada) {
                 // Mostrar alerta al finalizar partida
                 const alertDiv = document.createElement("div");
                 alertDiv.className = "alert alert-success alert-dismissible fade show mt-4";
                 alertDiv.role = "alert";
                 alertDiv.innerHTML = `
-                    🎉 <strong>¡La partida ha finalizado!</strong> Has alcanzado la meta en todos los recursos.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>`;
+                🎉 <strong>¡La partida ha finalizado!</strong> Has alcanzado la meta en todos los recursos.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+              `;
 
-                document.querySelector("main").prepend(alertDiv);
+                const main = document.querySelector("main");
+                main.prepend(alertDiv);
 
                 // Deshabilitar botones de obtener recursos
                 document.querySelectorAll(".btn-resource").forEach(b => b.disabled = true);
-          }
 
-            // Minijuego de Matemáticas Submit
-          document.getElementById('submitMathAnswer').addEventListener('click', function() {
-              const answer = document.getElementById('mathAnswer').value;
-              let correct = 0;
 
-              for (let num of currentNumberArray) {
-                correct += num;
+                chartDataCache = data.jugadoresStats;
+
+                //Habilitar boton estadisticas y nueva partida
+                const btnStats = document.getElementById("btnVerEstadisticas");
+                const btnNewGame = document.getElementById("btnNuevaPartida")
+
+                btnStats.classList.remove("d-none");
+                btnNewGame.classList.remove("d-none");
               }
-
-              clearCountdown('mathCountdown');
-
-              if (parseInt(answer) === correct) {
-
-                  fetch('@Url.Action("EnviarRecursos", "Partida")', {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ recurso: recursoMap["Madera"] })
-                })
-                  .then(response => response.json())
-                  .then(data => {
-                   //Actualizar total de madera
-                     document.getElementById("woodCurrent").textContent = data.totalMadera;
-
-                     mathGameModal.hide();
-
-                     if (data.partidaFinalizada) {
-                          mensajePartidaFinalizada();
-                     } else {
-                          showSuccessMessage('¡Correcto! Has recolectado madera.');
-                     }
-                  })
-                  .catch(err => console.error("Error:", err));
-              } else {
-                  mathGameModal.hide();
-                  showErrorMessage(`Respuesta incorrecta. La suma correcta era ${correct}.`);
-              }
-            });
-
-            //Secuencia para el minijuego de memoria
-            async function startMemorySequence(numeros){
-                const display = document.getElementById('sequenceDisplay');
-                const position = document.getElementById('sequencePosition');
-                let counter = 0;
-
-                  for (let numero in numeros) {
-                      counter++;
-                      display.textContent = numeros[numero];
-                      position.textContent = counter;
-                      await esperar(1000);
-                      display.textContent = '';
-                      await esperar(500);
-                  }
-
-                setTimeout(() => {
-                  document.getElementById('memorySequencePhase').style.display = 'none';
-                  document.getElementById('memoryQuestionPhase').style.display = 'block';
-                }, 1000);
-            }
-
-            document.getElementById('memoryYes').addEventListener('click', function() {
-              clearCountdown('memoryCountdown');
-              memoryGameModal.hide();
-
-              // Respuesta correcta: 5, 12, 8, 15, 3 tiene exactamente 2 pares (12, 8)
-              gameData.stone.current = Math.min(gameData.stone.current + 1, gameData.stone.target);
-              document.getElementById('stoneCurrent').textContent = gameData.stone.current;
-              updateChart();
-              showSuccessMessage('¡Correcto! Has recolectado piedra.');
-            });
-
-            document.getElementById('memoryNo').addEventListener('click', function() {
-              clearCountdown('memoryCountdown');
-              memoryGameModal.hide();
-              showErrorMessage('Respuesta incorrecta. Había exactamente 2 números pares.');
-            });
-
-            function showSuccessMessage(text = '¡Recurso recolectado!') {
-              const banner = document.getElementById('stateBanner');
-              banner.className = 'alert alert-success border-0';
-              banner.innerHTML = `<strong>¡Éxito!</strong> ${text}`;
-              banner.style.display = 'block';
-              setTimeout(() => banner.style.display = 'none', 3000);
-            }
-
-            function showErrorMessage( text) {
-                const banner = document.getElementById('stateBanner');
-              banner.className = 'alert alert-danger border-0';
-              banner.innerHTML = `<strong>Error:</strong> ${text}`;
-              banner.style.display = 'block';
-              setTimeout(() => banner.style.display = 'none', 3000);
-            }
+            })
+            .catch(err => console.error("Error:", err));
+        });
       });
+
+
+      document.getElementById("btnVerEstadisticas").addEventListener("click", () => {
+        if (!chartDataCache) return;
+
+        const endGameModal = new bootstrap.Modal(document.getElementById("endGameModal"));
+        endGameModal.show();
+
+        setTimeout(() => {
+          const ctx = document.getElementById('recursosChart').getContext('2d');
+
+
+          const labels = chartDataCache.map(d => d.nombreJugador);
+          const config = {
+            type: 'bar',
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: 'Madera',
+                  data: chartDataCache.map(d => d.madera),
+                  backgroundColor: 'rgba(153, 102, 255, 0.6)'
+                },
+                {
+                  label: 'Piedra',
+                  data: chartDataCache.map(d => d.piedra),
+                  backgroundColor: 'rgba(255, 159, 64, 0.6)'
+                },
+                {
+                  label: 'Comida',
+                  data: chartDataCache.map(d => d.comida),
+                  backgroundColor: 'rgba(75, 192, 192, 0.6)'
+                }
+              ]
+            },
+            options: {
+              responsive: true,
+              scales: {
+                x: {
+                  ticks: { color: '#ccc' },
+                  grid: { color: 'rgba(255,255,255,0.1)' }
+                },
+                y: {
+                  beginAtZero: true,
+                  ticks: { color: '#ccc' },
+                  grid: { color: 'rgba(255,255,255,0.1)' }
+                }
+              },
+              plugins: {
+                title: {
+                  display: true,
+                  text: 'Recursos recolectados por jugador',
+                  color: '#ccc'
+                },
+                legend: {
+                  labels: { color: '#ccc' }
+                }
+              }
+            }
+          };
+
+          window.recursosChart = new Chart(ctx, config);
+        }, 300);
+      });
+    })
   </script>
 </body>
 
