@@ -12,6 +12,12 @@ namespace Coopera.Services
         Piedra = 1,
         Comida = 2,
     }
+    public interface IPartidaService
+    {
+        Task NuevaPartida(Dificultad dificultad, string nombreJugador, ISession session);
+        Task<JugadorPartida> AumentarRecurso(int? partidaId, int? jugadorId, Recurso recurso);
+        Task<IMinijuego> CrearMiniJuego(int? partidaId, int? jugadorId, Recurso recurso);
+    }
     public class PartidaService
     {
         private readonly AppDbContext _context;

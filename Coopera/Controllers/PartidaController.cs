@@ -68,6 +68,7 @@ namespace Coopera.Controllers
 
             try
             {
+                //Modificar esto para que no se cree un nuevo jugador todas las veces
                 await _partidaService.NuevaPartida(dificultad, jugador.Nombre, HttpContext.Session);
                 return RedirectToAction("Index", "Partida");
             }

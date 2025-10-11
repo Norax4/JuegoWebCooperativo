@@ -47,3 +47,8 @@ app.MapControllerRoute(
 	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+namespace Coopera
+{
+	public partial class Program { }
+}
