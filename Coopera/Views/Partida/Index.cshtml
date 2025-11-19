@@ -208,7 +208,8 @@
             </div>
           </div>
           <div class="modal-footer border-top border-secondary-subtle">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              id="cancelBtnMatematica">Cancelar</button>
             <button type="button" class="btn btn-primary" id="submitMathAnswer">Enviar</button>
           </div>
         </div>
@@ -245,7 +246,8 @@
             </div>
           </div>
           <div class="modal-footer border-top border-secondary-subtle">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              id="cancelBtnMemoria">Cancelar</button>
           </div>
         </div>
       </div>
@@ -275,7 +277,8 @@
             </div>
           </div>
           <div class="modal-footer border-top border-secondary-subtle">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+              id="cancelBtnLogica">Cancelar</button>
           </div>
         </div>
       </div>
@@ -419,6 +422,7 @@
                 document.getElementById('questionMemory').innerText = currentQuestion;
 
                 memoryGameModal.show();
+                startCountdown('memoryCountdown');
                 startMemorySequence(currentNumberArray);
               })
               .catch(err => console.error("Error:", err));
@@ -470,6 +474,9 @@
         if (countdownTimers[elementId]) {
           clearInterval(countdownTimers[elementId]);
           delete countdownTimers[elementId];
+
+          const element = document.getElementById(elementId);
+          element.textContent = '60s';
         }
       }
 
@@ -486,16 +493,29 @@
         })
           .then(response => response.json())
           .then(data => {
+            console.log(data);
 
             document.getElementById("woodCurrent").textContent = data.totalMadera;
             document.getElementById("stoneCurrent").textContent = data.totalPiedra;
             document.getElementById("foodCurrent").textContent = data.totalComida;
 
             if (recurso == "Madera") {
+              if (data.totalMadera >= data.meta) {
+                const btnWood = document.getElementById('btnWood');
+                btnWood.disabled = true;
+              }
               mathGameModal.hide();
             } else if (recurso == "Piedra") {
+              if (data.totalPiedra >= data.meta) {
+                const btnStone = document.getElementById('btnStone');
+                btnStone.disabled = true;
+              }
               memoryGameModal.hide();
             } else if (recurso == "Comida") {
+              if (data.totalComida >= data.meta) {
+                const btnFood = document.getElementById('btnFood');
+                btnFood.disabled = true;
+              }
               logicGameModal.hide();
             }
 
@@ -529,6 +549,11 @@
       document.getElementById("btnVerEstadisticas").addEventListener("click", () => {
         renderChartJs(chartDataCache, "endGameModal", "recursosChart");
       });
+
+      //Botones cancelar
+      document.getElementById('cancelBtnMatematica').addEventListener('click', function () { clearCountdown('mathCountdown') })
+      document.getElementById('cancelBtnMemoria').addEventListener('click', function () { clearCountdown('memoryCountdown') })
+      document.getElementById('cancelBtnLogica').addEventListener('click', function () { clearCountdown('logicCountdown') })
 
       // Minijuego de Matemáticas Submit
       document.getElementById('submitMathAnswer').addEventListener('click', async function () {
@@ -578,7 +603,6 @@
         setTimeout(() => {
           document.getElementById('memorySequencePhase').style.display = 'none';
           document.getElementById('memoryQuestionPhase').style.display = 'block';
-          startCountdown('memoryCountdown');
         }, 1000);
       }
 

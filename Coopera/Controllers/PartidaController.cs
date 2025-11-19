@@ -143,6 +143,7 @@ namespace Coopera.Controllers
                 Partida partida = jugadorPartida.Partida!;
 
                 bool partidaFinalizada = partida.PartidaFinalizada;
+                int meta = partida.Meta;
 
                 List<JugadorPartida> jugadoresPartida = _context.JugadoresPartidas
                 .Include(jp => jp.Jugador)
@@ -162,6 +163,7 @@ namespace Coopera.Controllers
                     totalMadera = jugadorPartida.Partida!.Madera,
                     totalPiedra = jugadorPartida.Partida.Piedra,
                     totalComida = jugadorPartida.Partida.Comida,
+                    meta,
                     partidaFinalizada,
                     jugadoresStats
                 });
