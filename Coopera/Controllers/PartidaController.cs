@@ -4,7 +4,6 @@ using Coopera.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Coopera.Services;
-using Coopera.Factories.Minijuegos;
 using JuegoWebCooperativo.DTOs;
 using System.Globalization;
 
