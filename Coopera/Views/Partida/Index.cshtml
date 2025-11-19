@@ -355,6 +355,7 @@
       let countdownTimers = {};
       let currentNumberArray = [];
       let currentQuestion = '';
+      let currentQuestionId;
       let rightAnswer;
 
       const partidaId = @Model.Partida.Id;
@@ -387,12 +388,8 @@
               .then(response => response.json())
               .then(data => {
                 //guardar valores
+                currentQuestionId = data.id;
                 currentQuestion = data.pregunta;
-
-
-
-                //rightAnswer = data.respuestaCorrecta; //CAMBIAR, SE DEBE CHEQUEAR CUANDO SE HACE CLICK EN RESPUESTA
-
 
 
                 //Asignar valores del array
@@ -414,14 +411,9 @@
               .then(response => response.json())
               .then(data => {
                 //guardar valores
+                currentQuestionId = data.id;
                 currentNumberArray = data.numeros;
                 currentQuestion = data.pregunta;
-
-
-
-                //rightAnswer = data.respuestaCorrecta;
-
-
 
                 //asignar la pregunta
                 document.getElementById('questionMemory').innerText = currentQuestion;
@@ -441,14 +433,9 @@
               .then(response => response.json())
               .then(data => {
                 //guardar valores
+                currentQuestionId = data.id;
                 currentNumberArray = data.numeros;
                 currentQuestion = data.pregunta;
-
-
-
-                //rightAnswer = data.respuestaCorrecta;
-
-
 
                 //Asignar valores del array
                 document.getElementById('numberArrayLogic').innerText = `${currentNumberArray[0]}, ${currentNumberArray[1]}, ${currentNumberArray[2]}`;
@@ -546,26 +533,28 @@
       // Minijuego de Matemáticas Submit
       document.getElementById('submitMathAnswer').addEventListener('click', async function () {
         const answer = document.getElementById('mathAnswer').value;
+        console.log(answer);
 
         clearCountdown('mathCountdown');
 
+        fetch(`@Url.Action("ValidarRespuesta", "Partida")?id=${currentQuestionId}&respuesta=${answer}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }).then(response => response.json())
+          .then(data => {
+            rightAnswer = data.respuestaCorrecta;
 
-        //!!!!!!!!!!!!!!!!!
+            if (answer === rightAnswer) {
 
-        //!!!!!!!!!!!!!!!!!
-
-        //!!!!!!!!!!!!!!!!!
-
-        //LLAMAR ENDPOINT VALIDAR RESPUESTA --> rightAnswer guarda el valor a chequear
-
-
-        if (parseInt(answer) === rightAnswer) {
-
-          addResource("Madera");
-        } else {
-          mathGameModal.hide();
-          showErrorMessage(`Respuesta incorrecta. La suma correcta era ${rightAnswer}.`);
-        }
+              addResource("Madera");
+            } else {
+              mathGameModal.hide();
+              showErrorMessage(`Respuesta incorrecta. La suma correcta era ${rightAnswer}.`);
+            }
+          })
+          .catch(err => console.error("Error:", err));
       });
 
       //Secuencia para el minijuego de memoria
@@ -597,48 +586,92 @@
       document.getElementById('memoryYes').addEventListener('click', function () {
         clearCountdown('memoryCountdown');
 
-        if (rightAnswer === 1) {
-          addResource("Piedra");
-        } else {
-          memoryGameModal.hide();
-          showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
-        }
+        fetch(`@Url.Action("ValidarRespuesta", "Partida")?id=${currentQuestionId}&respuesta=1`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }).then(response => response.json())
+          .then(data => {
+            rightAnswer = data.respuestaCorrecta;
+
+            if (rightAnswer === '1') {
+              addResource("Piedra");
+            } else {
+              memoryGameModal.hide();
+              showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
+            }
+          })
+          .catch(err => console.error("Error:", err));
       });
 
       //Botón "no" de Memoria
       document.getElementById('memoryNo').addEventListener('click', function () {
         clearCountdown('memoryCountdown');
 
-        if (rightAnswer === 0) {
-          addResource("Piedra");
-        } else {
-          memoryGameModal.hide();
-          showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
-        }
+        fetch(`@Url.Action("ValidarRespuesta", "Partida")?id=${currentQuestionId}&respuesta=0`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }).then(response => response.json())
+          .then(data => {
+            rightAnswer = data.respuestaCorrecta;
+
+            if (rightAnswer === '0') {
+              addResource("Piedra");
+            } else {
+              memoryGameModal.hide();
+              showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
+            }
+          })
+          .catch(err => console.error("Error:", err));
       });
 
       //Botón "verdadero" de Lógica
       document.getElementById('logicTrue').addEventListener('click', function () {
         clearCountdown('logicCountdown');
 
-        if (rightAnswer === 1) {
-          addResource("Comida");
-        } else {
-          logicGameModal.hide();
-          showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
-        }
+        fetch(`@Url.Action("ValidarRespuesta", "Partida")?id=${currentQuestionId}&respuesta=1`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }).then(response => response.json())
+          .then(data => {
+            rightAnswer = data.respuestaCorrecta;
+
+            if (rightAnswer === '1') {
+              addResource("Comida");
+            } else {
+              logicGameModal.hide();
+              showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
+            }
+          })
+          .catch(err => console.error("Error:", err));
       });
 
       //Botón "falso" de Lógica
       document.getElementById('logicFalse').addEventListener('click', function () {
         clearCountdown('logicCountdown');
 
-        if (rightAnswer === 0) {
-          addResource("Comida");
-        } else {
-          logicGameModal.hide();
-          showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
-        }
+        fetch(`@Url.Action("ValidarRespuesta", "Partida")?id=${currentQuestionId}&respuesta=0`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        }).then(response => response.json())
+          .then(data => {
+            rightAnswer = data.respuestaCorrecta;
+
+            if (rightAnswer === '0') {
+              addResource("Comida");
+            } else {
+              logicGameModal.hide();
+              showErrorMessage('Respuesta incorrecta. ¡Mejor suerte la siguiente vez!');
+            }
+          })
+          .catch(err => console.error("Error:", err));
       });
 
       function showSuccessMessage(text = '¡Recurso recolectado!') {

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Coopera.Services;
 using Coopera.Factories.Minijuegos;
+using JuegoWebCooperativo.DTOs;
+using System.Globalization;
 
 namespace Coopera.Controllers
 {
@@ -90,29 +92,38 @@ namespace Coopera.Controllers
 
             try
             {
-                MinijuegoResponseDto minijuegoResponse = await _partidaService.CrearMiniJuego(partidaId, jugadorId, request.Recurso);
+                MinijuegoResponseDto minijuegoResponse = await _partidaService
+                .CrearMiniJuego(partidaId, jugadorId, request.Recurso);
 
                 return Ok(minijuegoResponse);
-
-                /* switch (minijuego)
-                {
-                    case MinijuegoMadera madera:
-                        return Json(new { pregunta = madera.Pregunta, respuestaCorrecta = madera.RespuestaCorrecta });
-
-                    case MinijuegoPiedra piedra:
-                        return Json(new { pregunta = piedra.Pregunta, respuestaCorrecta = piedra.RespuestaCorrecta, secuencia = piedra.SecuenciaNumerica });
-
-                    case MinijuegoComida comida:
-                        return Json(new { pregunta = comida.Pregunta, respuestaCorrecta = comida.RespuestaCorrecta, secuencia = comida.SecuenciaNumerica });
-
-                    default:
-                        return BadRequest("Tipo de minijuego no reconocido.");
-                } */
             }
             catch (ArgumentException ex)
             {
                 Console.WriteLine(ex.Message);
+                return RedirectToAction("Index", "Partida");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ValidarRespuesta(string id, string respuesta)
+        {
+            int? partidaId = HttpContext.Session.GetInt32("PartidaId");
+            int? jugadorId = HttpContext.Session.GetInt32("JugadorId");
+
+            if (!jugadorId.HasValue || !partidaId.HasValue)
                 return RedirectToAction("Index", "Home");
+
+            try
+            {
+                RespuestaResponseDto response = await _partidaService
+                .ValidarRespuesta(partidaId, jugadorId, id, respuesta);
+
+                return Ok(response);
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return RedirectToAction("Index", "Partida");
             }
         }
 
@@ -159,7 +170,7 @@ namespace Coopera.Controllers
             catch (ArgumentException ex)
             {
                 Console.WriteLine(ex.Message);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Partida");
             }
         }
     }

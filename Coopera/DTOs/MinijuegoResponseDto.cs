@@ -4,16 +4,17 @@ namespace Coopera.DTOs
 {
     public class MinijuegoResponseDto
     {
+        [JsonPropertyName("id")]
+        public string Id { get; set; } = string.Empty;
         [JsonPropertyName("tipo")]
-        public required string Tipo { get; set; }
+        public string Tipo { get; set; } = string.Empty;
         [JsonPropertyName("numeros")]
-        public required List<string> Numeros { get; set; }
+        public List<string> Numeros { get; set; } = [];
         [JsonPropertyName("pregunta")]
-        public required string? Pregunta_Texto { get; set; }
+        public string? Pregunta_Texto { get; set; } = string.Empty;
         [JsonPropertyName("codigo_pregunta")]
-        public required string Codigo_Pregunta { get; set; } //Guarda "MATEMATICA" si es pregunta de Matematicas, o el codigo que corresponde
-                                                             //a la pregunta de Logica o Memoria, ej; "2PARES", "SECUENCIA_MAYOR", "SECUENCIA_MENOR", etc.
+        public string Codigo_Pregunta { get; set; } = string.Empty;
         [JsonPropertyName("fecha_creacion")]
-        public required string FechaCreacion { get; set; }
+        public string FechaCreacion { get; set; } = string.Empty;
     }
 }

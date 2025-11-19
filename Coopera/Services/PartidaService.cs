@@ -1,8 +1,8 @@
 using System.Text.Json;
 using Coopera.Data;
 using Coopera.DTOs;
-using Coopera.Factories.Minijuegos;
 using Coopera.Models;
+using JuegoWebCooperativo.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace Coopera.Services
@@ -18,6 +18,7 @@ namespace Coopera.Services
         Task NuevaPartida(Dificultad dificultad, string nombreJugador, ISession session);
         Task<JugadorPartida> AumentarRecurso(int? partidaId, int? jugadorId, Recurso recurso);
         Task<MinijuegoResponseDto> CrearMiniJuego(int? partidaId, int? jugadorId, Recurso recurso);
+        Task<RespuestaResponseDto> ValidarRespuesta(int? partidaId, int? jugadorId, string id, string respuesta);
     }
     public class PartidaService : IPartidaService
     {
@@ -118,18 +119,41 @@ namespace Coopera.Services
 
             if (response.IsSuccessStatusCode)
             {
-
                 string respuestaJson = await response.Content.ReadAsStringAsync();
 
                 MinijuegoResponseDto pregunta = JsonSerializer.Deserialize<MinijuegoResponseDto>(respuestaJson)!;
 
                 return pregunta;
             }
-            else
+
+            Console.WriteLine($"Error al crear el minijuego: {response.StatusCode}");
+            return new MinijuegoResponseDto();
+        }
+
+        public async Task<RespuestaResponseDto> ValidarRespuesta(int? partidaId, int? jugadorId, string id, string respuesta)
+        {
+            JugadorPartida? jugadorPartida = await _context.JugadoresPartidas
+            .Include(jp => jp.Partida)
+            .FirstOrDefaultAsync(jp => jp.PartidaId == partidaId && jp.JugadorId == jugadorId);
+
+            if (jugadorPartida == null)
+                throw new ArgumentException("Jugador o partida no encontrados");
+
+            HttpResponseMessage response = await _httpClient
+            .GetAsync($"{_apiUrl}/validarPregunta?id={id}&respuesta={respuesta}");
+
+            if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine($"Error al crear el minijuego: {response.StatusCode}");
-                return null;
+                string respuestaJson = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(respuestaJson);
+
+                RespuestaResponseDto respuestaResponse = JsonSerializer.Deserialize<RespuestaResponseDto>(respuestaJson)!;
+
+                return respuestaResponse;
             }
+
+            Console.WriteLine($"Error al crear el minijuego: {response.StatusCode}");
+            return new RespuestaResponseDto();
         }
     }
 }
