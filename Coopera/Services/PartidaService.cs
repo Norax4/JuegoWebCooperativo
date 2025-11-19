@@ -1,5 +1,6 @@
+using System.Text.Json;
 using Coopera.Data;
-using Coopera.Factories;
+using Coopera.DTOs;
 using Coopera.Factories.Minijuegos;
 using Coopera.Models;
 using Microsoft.EntityFrameworkCore;
@@ -16,15 +17,19 @@ namespace Coopera.Services
     {
         Task NuevaPartida(Dificultad dificultad, string nombreJugador, ISession session);
         Task<JugadorPartida> AumentarRecurso(int? partidaId, int? jugadorId, Recurso recurso);
-        Task<IMinijuego> CrearMiniJuego(int? partidaId, int? jugadorId, Recurso recurso);
+        Task<MinijuegoResponseDto> CrearMiniJuego(int? partidaId, int? jugadorId, Recurso recurso);
     }
-    public class PartidaService
+    public class PartidaService : IPartidaService
     {
         private readonly AppDbContext _context;
+        private readonly HttpClient _httpClient;
+        private readonly string _apiUrl;
 
-        public PartidaService(AppDbContext context)
+        public PartidaService(AppDbContext context, HttpClient httpClient)
         {
             _context = context;
+            _httpClient = httpClient;
+            _apiUrl = "http://localhost:5179";
         }
 
         public async Task NuevaPartida(Dificultad dificultad, string nombreJugador, ISession session)
@@ -98,7 +103,7 @@ namespace Coopera.Services
             return jugadorPartida;
         }
 
-        public async Task<IMinijuego> CrearMiniJuego(int? partidaId, int? jugadorId, Recurso recurso)
+        public async Task<MinijuegoResponseDto> CrearMiniJuego(int? partidaId, int? jugadorId, Recurso recurso)
         {
             JugadorPartida? jugadorPartida = await _context.JugadoresPartidas
                 .Include(jp => jp.Partida)
@@ -107,9 +112,24 @@ namespace Coopera.Services
             if (jugadorPartida == null)
                 throw new ArgumentException("Jugador o partida no encontrados");
 
-            IMinijuego minijuego = GenerarMinijuego.Generar(recurso);
+            RecursoRequestDto request = new RecursoRequestDto { Recurso = recurso };
 
-            return minijuego;
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"{_apiUrl}/preguntas", request);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                string respuestaJson = await response.Content.ReadAsStringAsync();
+
+                MinijuegoResponseDto pregunta = JsonSerializer.Deserialize<MinijuegoResponseDto>(respuestaJson)!;
+
+                return pregunta;
+            }
+            else
+            {
+                Console.WriteLine($"Error al crear el minijuego: {response.StatusCode}");
+                return null;
+            }
         }
     }
 }

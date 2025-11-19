@@ -11,9 +11,9 @@ namespace Coopera.Controllers
     public class PartidaController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly PartidaService _partidaService;
+        private readonly IPartidaService _partidaService;
 
-        public PartidaController(AppDbContext context, PartidaService partidaService)
+        public PartidaController(AppDbContext context, IPartidaService partidaService)
         {
             _context = context;
             _partidaService = partidaService;
@@ -90,33 +90,24 @@ namespace Coopera.Controllers
 
             try
             {
-                IMinijuego minijuego = await _partidaService.CrearMiniJuego(partidaId, jugadorId, request.Recurso);
+                MinijuegoResponseDto minijuegoResponse = await _partidaService.CrearMiniJuego(partidaId, jugadorId, request.Recurso);
 
-                switch (minijuego)
+                return Ok(minijuegoResponse);
+
+                /* switch (minijuego)
                 {
                     case MinijuegoMadera madera:
-                        return Json(new
-                        {
-                            pregunta = madera.Pregunta,
-                            respuestaCorrecta = madera.RespuestaCorrecta
-                        });
+                        return Json(new { pregunta = madera.Pregunta, respuestaCorrecta = madera.RespuestaCorrecta });
+
                     case MinijuegoPiedra piedra:
-                        return Json(new
-                        {
-                            pregunta = piedra.Pregunta,
-                            respuestaCorrecta = piedra.RespuestaCorrecta,
-                            secuencia = piedra.SecuenciaNumerica
-                        });
+                        return Json(new { pregunta = piedra.Pregunta, respuestaCorrecta = piedra.RespuestaCorrecta, secuencia = piedra.SecuenciaNumerica });
+
                     case MinijuegoComida comida:
-                        return Json(new
-                        {
-                            pregunta = comida.Pregunta,
-                            respuestaCorrecta = comida.RespuestaCorrecta,
-                            secuencia = comida.SecuenciaNumerica
-                        });
+                        return Json(new { pregunta = comida.Pregunta, respuestaCorrecta = comida.RespuestaCorrecta, secuencia = comida.SecuenciaNumerica });
+
                     default:
                         return BadRequest("Tipo de minijuego no reconocido.");
-                }
+                } */
             }
             catch (ArgumentException ex)
             {

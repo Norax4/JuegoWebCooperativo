@@ -8,14 +8,10 @@ namespace Coopera.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly AppDbContext _context;
-        private readonly PartidaService _partidaService;
+        private readonly IPartidaService _partidaService;
 
-        public HomeController(ILogger<HomeController> logger, AppDbContext context, PartidaService partidaService)
+        public HomeController(IPartidaService partidaService)
         {
-            _logger = logger;
-            _context = context;
             _partidaService = partidaService;
         }
 

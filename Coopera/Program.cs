@@ -12,7 +12,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 
 //Servicio partida
-builder.Services.AddScoped<PartidaService>();
+builder.Services.AddScoped<IPartidaService, PartidaService>();
+builder.Services.AddHttpClient<IPartidaService, PartidaService>();
 
 //Add services to the container
 builder.Services.AddControllersWithViews();

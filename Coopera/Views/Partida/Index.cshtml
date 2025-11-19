@@ -355,7 +355,7 @@
       let countdownTimers = {};
       let currentNumberArray = [];
       let currentQuestion = '';
-      let rightAnswer = -1;
+      let rightAnswer;
 
       const partidaId = @Model.Partida.Id;
 
@@ -388,7 +388,13 @@
               .then(data => {
                 //guardar valores
                 currentQuestion = data.pregunta;
-                rightAnswer = data.respuestaCorrecta;
+
+
+
+                //rightAnswer = data.respuestaCorrecta; //CAMBIAR, SE DEBE CHEQUEAR CUANDO SE HACE CLICK EN RESPUESTA
+
+
+
                 //Asignar valores del array
                 document.getElementById('mathProblem').innerText = currentQuestion;
                 document.getElementById('mathAnswer').value = '';
@@ -408,9 +414,15 @@
               .then(response => response.json())
               .then(data => {
                 //guardar valores
-                currentNumberArray = data.secuencia;
+                currentNumberArray = data.numeros;
                 currentQuestion = data.pregunta;
-                rightAnswer = data.respuestaCorrecta;
+
+
+
+                //rightAnswer = data.respuestaCorrecta;
+
+
+
                 //asignar la pregunta
                 document.getElementById('questionMemory').innerText = currentQuestion;
 
@@ -429,9 +441,15 @@
               .then(response => response.json())
               .then(data => {
                 //guardar valores
-                currentNumberArray = data.secuencia;
+                currentNumberArray = data.numeros;
                 currentQuestion = data.pregunta;
-                rightAnswer = data.respuestaCorrecta;
+
+
+
+                //rightAnswer = data.respuestaCorrecta;
+
+
+
                 //Asignar valores del array
                 document.getElementById('numberArrayLogic').innerText = `${currentNumberArray[0]}, ${currentNumberArray[1]}, ${currentNumberArray[2]}`;
                 document.getElementById('propositionLogic').innerText = currentQuestion;
@@ -530,6 +548,16 @@
         const answer = document.getElementById('mathAnswer').value;
 
         clearCountdown('mathCountdown');
+
+
+        //!!!!!!!!!!!!!!!!!
+
+        //!!!!!!!!!!!!!!!!!
+
+        //!!!!!!!!!!!!!!!!!
+
+        //LLAMAR ENDPOINT VALIDAR RESPUESTA --> rightAnswer guarda el valor a chequear
+
 
         if (parseInt(answer) === rightAnswer) {
 
